@@ -1,21 +1,38 @@
-import React from 'react'
+import { useState } from 'react'
 import { TiArrowSortedUp } from 'react-icons/ti'
 
+const sortItems = ['популярності', 'ціні', 'алфавіту']
+
 export default function Sort() {
+	const [toggleSort, setToggleSort] = useState(false)
+	const [activeSortItem, setActiveSortItem] = useState(0)
+
 	return (
-		<div class='sort'>
-			<div class='sort__label'>
+		<div className='sort'>
+			<button
+				type='button'
+				onClick={() => setToggleSort(!toggleSort)}
+				className='sort__label'
+			>
 				<TiArrowSortedUp size={20} />
 				<b>Сортування по:</b>
-				<span>популярності</span>
-			</div>
-			<div class='sort__popup'>
-				<ul>
-					<li class='active'>популярності</li>
-					<li>ціні</li>
-					<li>алфавіту</li>
-				</ul>
-			</div>
+				<span>{sortItems[activeSortItem]}</span>
+			</button>
+			{toggleSort && (
+				<div className='sort__popup'>
+					<ul>
+						{sortItems.map((item, idx) => (
+							<li
+								onClick={() => setActiveSortItem(idx) || setToggleSort(false)}
+								key={idx}
+								className={activeSortItem === idx ? 'active' : ''}
+							>
+								{item}
+							</li>
+						))}
+					</ul>
+				</div>
+			)}
 		</div>
 	)
 }

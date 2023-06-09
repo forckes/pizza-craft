@@ -2,16 +2,23 @@ import React from 'react'
 import ContentTop from '../ContentTop/ContentTop'
 import PizzaCard from '../PizzaCard/PizzaCard'
 
-export default function Content() {
+export default function Content({ pizzas }) {
 	return (
-		<div class='content'>
-			<div class='container'>
-				<ContentTop />
-				<h2 class='content__title'>Всі піцци</h2>
-				<div class='content__items'>
-					<PizzaCard title='Чізбургер-піцца' price={195} />
-					<PizzaCard title='Сирна' price={250} />
-					<PizzaCard title='Креветки по-азійському' price={360} />
+		<div className='content'>
+			<div className='container'>
+				<ContentTop pizzas={pizzas} />
+				<h2 className='content__title'>Всі піцци</h2>
+				<div className='content__items'>
+					{pizzas.map(({ imageUrl, name, price, id, sizes, types }) => (
+						<PizzaCard
+							key={id}
+							imageUrl={imageUrl}
+							title={name}
+							price={price}
+							sizes={sizes}
+							types={types}
+						/>
+					))}
 				</div>
 			</div>
 		</div>

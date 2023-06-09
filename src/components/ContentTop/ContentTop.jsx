@@ -2,10 +2,11 @@ import React from 'react'
 import Categories from '../Categories/Categories'
 import Sort from '../Sort/Sort'
 
-export default function ContentTop() {
+export default function ContentTop({ pizzas: { id, category } }) {
 	return (
-		<div class='content__top'>
-			<Categories />
+		<div className='content__top'>
+			<Categories key={id} category={category} />
+
 			<Sort />
 		</div>
 	)

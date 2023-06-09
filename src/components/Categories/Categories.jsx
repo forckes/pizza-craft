@@ -1,15 +1,42 @@
-import React from 'react'
+import { useState } from 'react'
 
-export default function Categories() {
+const CategoriesItems = [
+	'Всі',
+	"М'ясні",
+	'Вегетаріанські',
+	'Гриль',
+	'Гостра',
+	'Закриті',
+]
+
+export default function Categories({ category }) {
+	const [activeCategoryIdx, setActiveCategoryIdx] = useState(0)
+
+	const setActiveIdx = index => {
+		setActiveCategoryIdx(index)
+	}
+
+	const makeOptionClassName = index => {
+		const optionClasses = []
+
+		if (index === activeCategoryIdx) {
+			optionClasses.push('active')
+		}
+		return optionClasses.join(' ')
+	}
+
 	return (
-		<div class='categories'>
+		<div className='categories'>
 			<ul>
-				<li class='active'>Всі</li>
-				<li>М'ясні</li>
-				<li>Вегетаріанські</li>
-				<li>Гриль</li>
-				<li>Гостра</li>
-				<li>Закриті</li>
+				{CategoriesItems.map((item, idx) => (
+					<li
+						key={idx}
+						onClick={() => setActiveIdx(idx)}
+						className={makeOptionClassName(idx)}
+					>
+						{item}
+					</li>
+				))}
 			</ul>
 		</div>
 	)
