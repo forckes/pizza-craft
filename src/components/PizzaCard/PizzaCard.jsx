@@ -1,17 +1,18 @@
-import { useState } from 'react'
-import PizzaCardBottom from '../PizzaCardBottom/PizzaCardBottom'
+import { useState } from "react";
+import PizzaCardBottom from "../PizzaCardBottom/PizzaCardBottom";
 
 //
-const pizzaTypes = ['тонке', 'традиційне']
+const pizzaTypes = ["тонке", "традиційне"];
 //
 
 export default function PizzaCard({ title, price, imageUrl, sizes, types }) {
-	const [activeTypeIdx, setActiveTypeIdx] = useState(0)
-	const [activeSizeIdx, setActiveSizeIdx] = useState(0)
+	const [activeTypeIdx, setActiveTypeIdx] = useState(0);
+	const [activeSizeIdx, setActiveSizeIdx] = useState(0);
 
 	return (
 		<div className='pizza-block'>
 			<img className='pizza-block__image' src={imageUrl} alt='Pizza' />
+
 			<h4 className='pizza-block__title'>{title}</h4>
 			<div className='pizza-block__selector'>
 				<ul>
@@ -19,7 +20,7 @@ export default function PizzaCard({ title, price, imageUrl, sizes, types }) {
 						<li
 							key={idx}
 							onClick={() => setActiveTypeIdx(idx)}
-							className={activeTypeIdx === idx ? 'active' : ''}
+							className={activeTypeIdx === idx ? "active" : ""}
 						>
 							{pizzaTypes[type]}
 						</li>
@@ -30,7 +31,7 @@ export default function PizzaCard({ title, price, imageUrl, sizes, types }) {
 						<li
 							key={idx}
 							onClick={() => setActiveSizeIdx(idx)}
-							className={activeSizeIdx === idx ? 'active' : ''}
+							className={activeSizeIdx === idx ? "active" : ""}
 						>
 							{size} см.
 						</li>
@@ -40,5 +41,5 @@ export default function PizzaCard({ title, price, imageUrl, sizes, types }) {
 
 			<PizzaCardBottom price={price} />
 		</div>
-	)
+	);
 }

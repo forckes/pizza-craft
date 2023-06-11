@@ -1,9 +1,10 @@
-import { useState } from 'react'
-import { HiOutlinePlus } from 'react-icons/hi'
+import { useState } from "react";
+import { HiOutlinePlus } from "react-icons/hi";
 
 export default function PizzaCardBottom({ price }) {
-	const [quantity, setQuantity] = useState(0)
-	const [clicked, setClicked] = useState(false)
+	const [quantity, setQuantity] = useState(0);
+	const [clicked, setClicked] = useState(false);
+
 	return (
 		<div className='pizza-block__bottom'>
 			<div className='pizza-block__price'>
@@ -19,5 +20,5 @@ export default function PizzaCardBottom({ price }) {
 				<i>{quantity}</i>
 			</button>
 		</div>
-	)
+	);
 }

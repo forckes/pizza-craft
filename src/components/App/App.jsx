@@ -1,17 +1,41 @@
-import React from 'react'
-import '../../scss/app.scss'
-import Header from '../Header/Header'
-import Content from '../Content/Content'
+import { lazy, Suspense } from "react";
 
-import pizzas from '../../assets/pizzas.json'
+import "../../scss/app.scss";
 
-function App() {
+import {
+	createBrowserRouter,
+	createRoutesFromElements,
+	RouterProvider,
+	Route
+} from "react-router-dom";
+import Header from "../Header/Header";
+
+import { fetchPizzas } from "../../pages/HomePage";
+
+const HomePage = lazy(() => import("../../pages/HomePage"));
+const CartPage = lazy(() => import("../../pages/CartPage"));
+
+const Root = () => {
+	return (
+		<>
+			<Header />
+		</>
+	);
+};
+
+const router = createBrowserRouter(
+	createRoutesFromElements(
+		<Route path='/' element={<Root />}>
+			<Route index element={<HomePage />} loader={fetchPizzas} />
+			<Route path='cart' element={<CartPage />} />
+		</Route>
+	)
+);
+
+export default function App() {
 	return (
 		<div className='wrapper'>
-			<Header />
-			<Content pizzas={pizzas} />
+			<RouterProvider router={router} />
 		</div>
-	)
+	);
 }
-
-export default App
