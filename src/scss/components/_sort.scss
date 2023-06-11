@@ -1,4 +1,4 @@
-@import '../variables';
+@import "../variables";
 
 .sort {
 	position: relative;
@@ -7,6 +7,9 @@
 		align-items: center;
 		justify-content: center;
 		font-size: 16px;
+		@media (max-width: 1240px) {
+			margin-top: 20px;
+		}
 		svg {
 			margin-right: 8px;
 		}

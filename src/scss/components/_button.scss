@@ -1,4 +1,4 @@
-@import '../variables';
+@import "../variables";
 
 .button {
 	display: inline-block;
@@ -8,21 +8,12 @@
 	min-width: 100px;
 	text-align: center;
 	cursor: pointer;
-	transition: background-color $duration ease-in-out,
-		border-color $duration ease-in-out;
-	border: 1px solid transparent;
-	@include noselect();
+	border: 1px solid $orange;
+	transition: background-color 0.3s ease 0s;
 
 	&,
 	span {
 		color: #fff;
-	}
-
-	i,
-	span,
-	path,
-	svg {
-		transition: all $duration ease-in-out;
 	}
 
 	&:hover {
@@ -44,28 +35,42 @@
 		padding: 0;
 		border-width: 2px;
 	}
+	&--remove {
+		width: 32px;
+		height: 32px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid #777777;
+		color: #777777;
+		border-radius: 50%;
+		transition: border 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+		&:hover {
+			border: 1px solid #000;
+			color: #fff;
+			background-color: #000;
+		}
+	}
 
 	&--black {
 		background-color: $black;
-
 		&:hover,
 		&:active {
 			background-color: lighten($color: $black, $amount: 10);
+		}
+		span {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 4px;
 		}
 	}
 
 	&--outline {
 		background-color: #fff;
-		border-color: $orange;
 		&,
 		span {
 			color: $orange;
-		}
-
-		svg {
-			path {
-				fill: $orange;
-			}
 		}
 
 		&:hover {
@@ -74,12 +79,6 @@
 			&,
 			span {
 				color: #fff;
-			}
-
-			svg {
-				path {
-					fill: #fff;
-				}
 			}
 		}
 
