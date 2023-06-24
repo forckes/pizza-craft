@@ -1,9 +1,9 @@
-import { Suspense } from "react";
 import { HiShoppingCart } from "react-icons/hi";
 import Logo from "../../assets/images/logo.svg";
 import { NavLink, Outlet } from "react-router-dom";
+import SearchBox from "../SearchBox/SearchBox";
 
-export default function Header() {
+export default function Header({ setSearchValue, searchValue }) {
 	return (
 		<>
 			<div className='header'>
@@ -15,6 +15,12 @@ export default function Header() {
 							<p>Найсмачніша піца у всесвіті</p>
 						</div>
 					</NavLink>
+					<div className='header__searchBox'>
+						<SearchBox
+							searchValue={searchValue}
+							setSearchValue={setSearchValue}
+						/>
+					</div>
 					<div className='header__cart'>
 						<NavLink to='/cart' className='button button--cart'>
 							<span>520 ₴</span>

@@ -1,29 +1,29 @@
-import { useState } from 'react'
+import React from "react";
 
-const CategoriesItems = [
-	'Всі',
-	"М'ясні",
-	'Вегетаріанські',
-	'Гриль',
-	'Гостра',
-	'Закриті',
-]
+import { useDispatch, useSelector } from "react-redux";
+import { setCategoryId } from "../../redux/filterSlice";
+import { getCategoryId } from "../../redux/filterSlice";
 
-export default function Categories({ category }) {
-	const [activeCategoryIdx, setActiveCategoryIdx] = useState(0)
-
-	const setActiveIdx = index => {
-		setActiveCategoryIdx(index)
-	}
+export default function Categories() {
+	const CategoriesItems = [
+		"Всі",
+		"М'ясні",
+		"Вегетаріанські",
+		"Гриль",
+		"Гостра",
+		"Закриті"
+	];
+	const dispatch = useDispatch();
+	const categoryId = useSelector(getCategoryId);
 
 	const makeOptionClassName = index => {
-		const optionClasses = []
+		const optionClasses = [];
 
-		if (index === activeCategoryIdx) {
-			optionClasses.push('active')
+		if (index === categoryId) {
+			optionClasses.push("active");
 		}
-		return optionClasses.join(' ')
-	}
+		return optionClasses.join(" ");
+	};
 
 	return (
 		<div className='categories'>
@@ -31,7 +31,7 @@ export default function Categories({ category }) {
 				{CategoriesItems.map((item, idx) => (
 					<li
 						key={idx}
-						onClick={() => setActiveIdx(idx)}
+						onClick={() => dispatch(setCategoryId(idx))}
 						className={makeOptionClassName(idx)}
 					>
 						{item}
@@ -39,5 +39,5 @@ export default function Categories({ category }) {
 				))}
 			</ul>
 		</div>
-	)
+	);
 }

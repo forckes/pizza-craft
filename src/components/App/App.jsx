@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, useState } from "react";
 
 import "../../scss/app.scss";
 
@@ -10,29 +10,25 @@ import {
 } from "react-router-dom";
 import Header from "../Header/Header";
 
-import { fetchPizzas } from "../../pages/HomePage";
-
 const HomePage = lazy(() => import("../../pages/HomePage"));
 const CartPage = lazy(() => import("../../pages/CartPage"));
 
-const Root = () => {
-	return (
-		<>
-			<Header />
-		</>
-	);
-};
-
-const router = createBrowserRouter(
-	createRoutesFromElements(
-		<Route path='/' element={<Root />}>
-			<Route index element={<HomePage />} loader={fetchPizzas} />
-			<Route path='cart' element={<CartPage />} />
-		</Route>
-	)
-);
-
 export default function App() {
+	const [searchValue, setSearchValue] = useState("");
+
+	const router = createBrowserRouter(
+		createRoutesFromElements(
+			<Route
+				path='/'
+				element={
+					<Header searchValue={searchValue} setSearchValue={setSearchValue} />
+				}
+			>
+				<Route index element={<HomePage searchValue={searchValue} />} />
+				<Route path='cart' element={<CartPage />} />
+			</Route>
+		)
+	);
 	return (
 		<div className='wrapper'>
 			<RouterProvider router={router} />

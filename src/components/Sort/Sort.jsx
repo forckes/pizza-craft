@@ -1,11 +1,32 @@
-import { useState } from 'react'
-import { TiArrowSortedUp } from 'react-icons/ti'
+import { useState } from "react";
 
-const sortItems = ['популярності', 'ціні', 'алфавіту']
+import { TiArrowSortedUp } from "react-icons/ti";
+
+import { useDispatch, useSelector } from "react-redux";
+import { getSort, setSort } from "../../redux/filterSlice";
+
+export const sortItems = [
+	{ name: `популярності ↓`, sortProperty: "rating" },
+	{
+		name: `популярності ↑`,
+		sortProperty: "-rating"
+	},
+	{ name: "ціні ↓", sortProperty: "price" },
+	{ name: "ціні ↑", sortProperty: "-price" },
+	{ name: "алфавіту ↓", sortProperty: "title" },
+	{ name: "алфавіту ↑", sortProperty: "-title" }
+];
 
 export default function Sort() {
-	const [toggleSort, setToggleSort] = useState(false)
-	const [activeSortItem, setActiveSortItem] = useState(0)
+	const onClickListItem = obj => {
+		dispatch(setSort(obj));
+		setToggleSort(false);
+	};
+
+	const [toggleSort, setToggleSort] = useState(false);
+
+	const dispatch = useDispatch();
+	const sort = useSelector(getSort);
 
 	return (
 		<div className='sort'>
@@ -16,23 +37,25 @@ export default function Sort() {
 			>
 				<TiArrowSortedUp size={20} />
 				<b>Сортування по:</b>
-				<span>{sortItems[activeSortItem]}</span>
+				<span>{sort.name}</span>
 			</button>
 			{toggleSort && (
 				<div className='sort__popup'>
 					<ul>
-						{sortItems.map((item, idx) => (
+						{sortItems.map((obj, idx) => (
 							<li
-								onClick={() => setActiveSortItem(idx) || setToggleSort(false)}
+								onClick={() => onClickListItem(obj)}
 								key={idx}
-								className={activeSortItem === idx ? 'active' : ''}
+								className={
+									sort.sortProperty === obj.sortProperty ? "active" : ""
+								}
 							>
-								{item}
+								{obj.name}
 							</li>
 						))}
 					</ul>
 				</div>
 			)}
 		</div>
-	)
+	);
 }
