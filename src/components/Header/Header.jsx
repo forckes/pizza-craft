@@ -3,7 +3,14 @@ import Logo from "../../assets/images/logo.svg";
 import { NavLink, Outlet } from "react-router-dom";
 import SearchBox from "../SearchBox/SearchBox";
 
+import { getItemsList, getTotalPrice } from "../../redux/cartSlice";
+import { useSelector } from "react-redux";
+
 export default function Header({ setSearchValue, searchValue }) {
+	const items = useSelector(getItemsList);
+	const totalPrice = useSelector(getTotalPrice);
+	const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+
 	return (
 		<>
 			<div className='header'>
@@ -23,10 +30,10 @@ export default function Header({ setSearchValue, searchValue }) {
 					</div>
 					<div className='header__cart'>
 						<NavLink to='/cart' className='button button--cart'>
-							<span>520 ₴</span>
+							<span>{totalPrice} ₴</span>
 							<div className='button__delimiter'></div>
 							<HiShoppingCart size={22} />
-							<span>3</span>
+							<span>{totalCount}</span>
 						</NavLink>
 					</div>
 				</div>

@@ -1,13 +1,41 @@
 import { useState } from "react";
 import PizzaCardBottom from "../PizzaCardBottom/PizzaCardBottom";
 
-//
-const pizzaTypes = ["тонке", "традиційне"];
+import { useDispatch, useSelector } from "react-redux";
+import { addItem } from "../../redux/cartSlice";
+
+//pizzaTypes
+export const pizzaTypes = ["тонке", "традиційне"];
 //
 
-export default function PizzaCard({ title, price, imageUrl, sizes, types }) {
+export default function PizzaCard({
+	id,
+	title,
+	price,
+	imageUrl,
+	sizes,
+	types
+}) {
 	const [activeTypeIdx, setActiveTypeIdx] = useState(0);
 	const [activeSizeIdx, setActiveSizeIdx] = useState(0);
+
+	const { count } = useSelector(
+		state => state.cart.items.find(obj => obj.id === id) || {}
+	);
+
+	const dispatch = useDispatch();
+
+	const onClickAdd = () => {
+		const item = {
+			id,
+			imageUrl,
+			title,
+			price,
+			size: sizes[activeSizeIdx],
+			type: pizzaTypes[activeTypeIdx]
+		};
+		dispatch(addItem(item));
+	};
 
 	return (
 		<div className='pizza-block'>
@@ -39,7 +67,7 @@ export default function PizzaCard({ title, price, imageUrl, sizes, types }) {
 				</ul>
 			</div>
 
-			<PizzaCardBottom price={price} />
+			<PizzaCardBottom count={count} onClickAdd={onClickAdd} price={price} />
 		</div>
 	);
 }

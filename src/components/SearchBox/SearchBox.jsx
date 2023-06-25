@@ -6,11 +6,11 @@ import debounce from "lodash.debounce";
 import { GoSearch } from "react-icons/go";
 import { IoMdClose } from "react-icons/io";
 
-export default function SearchBox({ setSearchValue, searchValue }) {
+export default function SearchBox({ setSearchValue }) {
 	const [value, setValue] = useState("");
 
 	const updateSearchValue = useCallback(
-		debounce(value => setSearchValue(value), 300),
+		debounce(value => setSearchValue(value), 450),
 		[setSearchValue]
 	);
 

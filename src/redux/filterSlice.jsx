@@ -26,6 +26,7 @@ export const filterSlice = createSlice({
 			state.categoryId = Number(action.payload.categoryId);
 			state.currentPage = Number(action.payload.currentPage);
 			state.sort = action.payload.sort;
+			state.searchValue = action.payload.searchValue;
 		}
 	}
 });

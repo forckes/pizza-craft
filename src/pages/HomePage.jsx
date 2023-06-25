@@ -31,57 +31,8 @@ export default function HomePage({ searchValue }) {
 	const categoryId = useSelector(getCategoryId);
 	const sort = useSelector(getSort);
 	const currentPage = useSelector(getCurrentPage);
-	//important!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	// import { getCustomers } from "../fakeApi.js";
-	// import { useState, useEffect, useMemo, Suspense } from "react";
-	// import SearchBox from "components/SearchBox.jsx";
-	// import { useLocation, useSearchParams } from "react-router-dom";
-	// import { Box } from "../components/Box/Box";
-	// import { Link } from "react-router-dom";
 
-	// export default function Customers() {
-	// 	const [customers, setCustomers] = useState([]);
-	// 	const [searchParams, setSearchParams] = useSearchParams();
-	// 	const filterParam = searchParams.get("filter") ?? "";
-	// 	const location = useLocation();
-
-	// 	useEffect(() => {
-	// 		getCustomers(customers).then(setCustomers);
-	// 	}, [customers]);
-
-	// 	const ChangeFilter = value => {
-	// 		setSearchParams(value !== "" ? { filter: value } : {});
-	// 	};
-
-	// 	const visibleCustomers = useMemo(() => {
-	// 		return customers.filter(customer =>
-	// 			customer.name.toLowerCase().includes(filterParam.toLowerCase())
-	// 		);
-	// 	}, [customers, filterParam]);
-
-	// 	return (
-	// 		<Box
-	// 			as='main'
-	// 			display='center'
-	// 			flexDirection='column'
-	// 			algnItems='center'
-	// 			justifyContent='center'
-	// 		>
-	// 			<Suspense fallback={<h1>Loading ...</h1>}>
-	// 				<SearchBox value={filterParam} onChange={ChangeFilter} />
-	// 				{visibleCustomers.length > 0 &&
-	// 					visibleCustomers.map(({ id, name }) => (
-	// 						<li type='none' key={id}>
-	// 							<Link state={{ from: location }} to={`${id}`}>
-	// 								{name}
-	// 							</Link>
-	// 						</li>
-	// 					))}
-	// 			</Suspense>
-	// 		</Box>
-	// 	);
-	// }
-
+	//functions
 	const handlePageChange = (event, newPage) => {
 		dispatch(setCurrentPage(newPage));
 	};
@@ -114,13 +65,14 @@ export default function HomePage({ searchValue }) {
 		}
 	};
 
+	//useEffects
 	useEffect(() => {
 		if (window.location.search) {
 			const params = qs.parse(window.location.search.substring(1));
 
 			if (
 				initialState.categoryId === Number(params.categoryId) &&
-				initialState.selectedSort === params.selectedSort &&
+				initialState.sort.sortProperty === params.sortProperty &&
 				initialState.currentPage === Number(params.currentPage)
 			) {
 				fetchPizzas();
@@ -163,6 +115,7 @@ export default function HomePage({ searchValue }) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [categoryId, currentPage, sort.sortProperty]);
 
+	//return
 	return (
 		<div className='content'>
 			<div className='container'>
@@ -192,6 +145,7 @@ export default function HomePage({ searchValue }) {
 						>
 							<PizzaCard
 								key={id}
+								id={id}
 								imageUrl={imageUrl}
 								title={name}
 								price={price}
