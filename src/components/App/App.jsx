@@ -1,5 +1,6 @@
 import { lazy, useState } from "react";
 
+//styles
 import "../../scss/app.scss";
 
 import {
@@ -8,10 +9,18 @@ import {
 	RouterProvider,
 	Route
 } from "react-router-dom";
-import Header from "../Header/Header";
 
+// components
+import Header from "../Header/Header";
+import NotFoundPage from "../NotFoundPage/NotFoundPage";
+
+//lazy components
 const HomePage = lazy(() => import("../../pages/HomePage"));
 const CartPage = lazy(() => import("../../pages/CartPage"));
+
+function ErrorBoundary() {
+	return <div>Error!</div>;
+}
 
 export default function App() {
 	const [searchValue, setSearchValue] = useState("");
@@ -19,13 +28,23 @@ export default function App() {
 	const router = createBrowserRouter(
 		createRoutesFromElements(
 			<Route
+				errorElement={<ErrorBoundary />}
 				path='/'
 				element={
 					<Header searchValue={searchValue} setSearchValue={setSearchValue} />
 				}
 			>
-				<Route index element={<HomePage searchValue={searchValue} />} />
-				<Route path='cart' element={<CartPage />} />
+				<Route
+					errorElement={<ErrorBoundary />}
+					index
+					element={<HomePage searchValue={searchValue} />}
+				/>
+				<Route
+					errorElement={<ErrorBoundary />}
+					path='cart'
+					element={<CartPage />}
+				/>
+				<Route path='*' element={<NotFoundPage />} />
 			</Route>
 		)
 	);

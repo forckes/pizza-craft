@@ -9,6 +9,7 @@ import { IoMdClose } from "react-icons/io";
 export default function SearchBox({ setSearchValue }) {
 	const [value, setValue] = useState("");
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const updateSearchValue = useCallback(
 		debounce(value => setSearchValue(value), 450),
 		[setSearchValue]
@@ -20,7 +21,7 @@ export default function SearchBox({ setSearchValue }) {
 	};
 
 	return (
-		<form className='searchBox'>
+		<div className='searchBox'>
 			<GoSearch size={17} color={"#7b7b7b"} className='searchBox__search' />
 			<input
 				placeholder='Пошук піци...'
@@ -37,6 +38,6 @@ export default function SearchBox({ setSearchValue }) {
 			>
 				<IoMdClose size={18} />
 			</button>
-		</form>
+		</div>
 	);
 }

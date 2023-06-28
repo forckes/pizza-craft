@@ -7,9 +7,9 @@ import { getItemsList, getTotalPrice } from "../../redux/cartSlice";
 import { useSelector } from "react-redux";
 
 export default function Header({ setSearchValue, searchValue }) {
-	const items = useSelector(getItemsList);
+	const CartItems = useSelector(getItemsList);
 	const totalPrice = useSelector(getTotalPrice);
-	const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+	const totalCount = CartItems.reduce((sum, item) => sum + item.count, 0);
 
 	return (
 		<>

@@ -1,21 +1,26 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+//components
 import ContentTop from "../components/ContentTop/ContentTop";
 import PizzaCard from "../components/PizzaCard/PizzaCard";
 import PizzaLoader from "../components/SkeletonLoaders/PizzaLoader";
 import PizzaPagination from "../components/Pagination/Pagination";
-
 import { sortItems } from "../components/Sort/Sort";
 
+//additional libs
 import LazyLoad from "react-lazyload";
 import LoadingBar from "react-top-loading-bar";
 import qs from "qs";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+//redux
 import { useSelector, useDispatch } from "react-redux";
 import { getCategoryId, getSort, getCurrentPage } from "../redux/filterSlice";
 import { setCurrentPage, setFilters, initialState } from "../redux/filterSlice";
 
+//base url
 const BASE_URL = "https://6484615eee799e3216269b53.mockapi.io/items";
 
 export default function HomePage({ searchValue }) {
@@ -37,6 +42,7 @@ export default function HomePage({ searchValue }) {
 		dispatch(setCurrentPage(newPage));
 	};
 
+	//fetch pizzas func
 	const fetchPizzas = async () => {
 		try {
 			const sortBy = sort.sortProperty.replace("-", "");
@@ -59,9 +65,13 @@ export default function HomePage({ searchValue }) {
 				const data = await response.json();
 				setPizzas(data);
 				setProgress(progress + 100);
+			} else {
+				setProgress(0);
+				toast.error("Can't load pizzas");
 			}
 		} catch (error) {
-			throw new Error(error);
+			setProgress(0);
+			toast.error("Something went wrong :(");
 		}
 	};
 
@@ -72,14 +82,14 @@ export default function HomePage({ searchValue }) {
 
 			if (
 				initialState.categoryId === Number(params.categoryId) &&
-				initialState.sort.sortProperty === params.sortProperty &&
+				initialState.sort?.sortProperty === params.sortProperty &&
 				initialState.currentPage === Number(params.currentPage)
 			) {
 				fetchPizzas();
 			}
 
 			const sort = sortItems.find(
-				obj => obj.sortProperty === params.sortProperty
+				obj => obj?.sortProperty === params.sortProperty
 			);
 
 			dispatch(setFilters({ ...params, sort }));
@@ -90,6 +100,10 @@ export default function HomePage({ searchValue }) {
 	}, [dispatch]);
 
 	useEffect(() => {
+		if (categoryId !== 0) {
+			dispatch(setCurrentPage(1));
+		}
+
 		setProgress(progress + 35);
 		window.scrollTo(0, 0);
 		if (!isSearch.current) {
@@ -103,7 +117,7 @@ export default function HomePage({ searchValue }) {
 	useEffect(() => {
 		if (isMounted.current) {
 			const queryString = qs.stringify({
-				sortProperty: sort.sortProperty,
+				sortProperty: sort?.sortProperty,
 				categoryId,
 				currentPage
 			});
@@ -164,6 +178,7 @@ export default function HomePage({ searchValue }) {
 					""
 				)}
 			</div>
+			<ToastContainer autoClose={2000} />
 		</div>
 	);
 }
