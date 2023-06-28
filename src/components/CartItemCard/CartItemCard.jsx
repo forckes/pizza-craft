@@ -4,12 +4,7 @@ import { FiMinusCircle, FiPlusCircle } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-	addItem,
-	minusItem,
-	plusItem,
-	removeItem
-} from "../../redux/cartSlice";
+import { minusItem, plusItem, removeItem } from "../../redux/cartSlice";
 
 export default function CartItemCard({
 	id,
@@ -21,11 +16,10 @@ export default function CartItemCard({
 }) {
 	const dispatch = useDispatch();
 	const { count } = useSelector(state =>
-		state.cart.items.find(item => item.id === id)
+		state.cart.items.find(item => {
+			return item.id === id && item.type === type && item.size === size;
+		})
 	);
-	// const plus = () => {
-	// 	dispatch(addItem({ id }));
-	// };
 
 	return (
 		<div className='cart__item'>
@@ -40,7 +34,7 @@ export default function CartItemCard({
 			</div>
 			<div className='cart__item-count'>
 				<button
-					onClick={() => dispatch(minusItem({ id }))}
+					onClick={() => dispatch(minusItem({ id, type, size }))}
 					type='button'
 					className='cart__item-count-circle'
 				>
@@ -48,7 +42,7 @@ export default function CartItemCard({
 				</button>
 				<b>{count}</b>
 				<button
-					onClick={() => dispatch(plusItem({ id }))}
+					onClick={() => dispatch(plusItem({ id, type, size }))}
 					type='button'
 					className='cart__item-count-circle'
 				>
@@ -59,7 +53,7 @@ export default function CartItemCard({
 				<b>{price * count} ₴</b>
 			</div>
 			<button
-				onClick={() => dispatch(removeItem({ id }))}
+				onClick={() => dispatch(removeItem({ id, type, size }))}
 				type='button'
 				className='cart__item-remove'
 			>

@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import PizzaCardBottom from "../PizzaCardBottom/PizzaCardBottom";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../../redux/cartSlice";
+
+import { toast } from "react-toastify";
 
 //pizzaTypes
 export const pizzaTypes = ["тонке", "традиційне"];
@@ -20,11 +22,33 @@ export default function PizzaCard({
 	const [activeSizeIdx, setActiveSizeIdx] = useState(0);
 
 	const { count } = useSelector(
-		state => state.cart.items.find(obj => obj.id === id) || {}
+		state =>
+			state.cart.items.find(obj => {
+				return (
+					obj.id === id &&
+					obj.type === pizzaTypes[activeTypeIdx] &&
+					obj.size === sizes[activeSizeIdx]
+				);
+			}) || {}
 	);
 
 	const dispatch = useDispatch();
 
+	const toastId = useRef(null);
+
+	const notify = () => {
+		if (!toast.isActive(toastId.current)) {
+			toastId.current = toast.success(
+				` *${title}*
+				додана до корзини`,
+				{
+					hideProgressBar: false,
+					position: "top-right"
+				}
+			);
+		}
+	};
+	//funcs
 	const onClickAdd = () => {
 		const item = {
 			id,
@@ -35,6 +59,7 @@ export default function PizzaCard({
 			type: pizzaTypes[activeTypeIdx]
 		};
 		dispatch(addItem(item));
+		notify();
 	};
 
 	return (

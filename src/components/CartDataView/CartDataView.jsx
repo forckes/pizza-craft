@@ -8,11 +8,14 @@ import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import { clearItems, getItemsList } from "../../redux/cartSlice";
+import { clearItems, getItemsList, getTotalPrice } from "../../redux/cartSlice";
 
 export default function CartDataView() {
 	const dispatch = useDispatch();
+
 	const CartItems = useSelector(getItemsList);
+	const totalPrice = useSelector(getTotalPrice);
+	const totalCount = CartItems.reduce((sum, item) => sum + item.count, 0);
 
 	return (
 		<div className='container container--cart'>
@@ -44,10 +47,10 @@ export default function CartDataView() {
 			<div className='cart__bottom'>
 				<div className='cart__bottom-details'>
 					<span>
-						Всього піцц: <b>{CartItems.length}</b>
+						Всього піцц: <b>{totalCount}</b>
 					</span>
 					<span>
-						Сумма замовлення: <b>520 ₴</b>
+						Сумма замовлення: <b>{totalPrice} ₴</b>
 					</span>
 				</div>
 				<div className='cart__bottom-buttons'>

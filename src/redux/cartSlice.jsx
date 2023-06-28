@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+//functions
 const calculateTotalPrice = items => {
 	if (items.length === 0) {
 		return 0;
@@ -9,6 +10,26 @@ const calculateTotalPrice = items => {
 		}, 0);
 	}
 };
+const findExistingItem = (items, payload) => {
+	return items.find(item => {
+		return (
+			item.id === payload.id &&
+			item.type === payload.type &&
+			item.size === payload.size
+		);
+	});
+};
+const onRemoveItem = (items, payload) => {
+	return items.filter(item => {
+		return (
+			item.id !== payload.id ||
+			item.type !== payload.type ||
+			item.size !== payload.size
+		);
+	});
+};
+
+//initial state
 const initialState = {
 	items: [],
 	totalPrice: 0
@@ -19,9 +40,8 @@ export const cartSlice = createSlice({
 	initialState,
 	reducers: {
 		addItem(state, action) {
-			const existingItem = state.items.find(
-				item => item.id === action.payload.id
-			);
+			const existingItem = findExistingItem(state.items, action.payload);
+
 			if (existingItem) {
 				existingItem.count += 1;
 			} else {
@@ -31,20 +51,18 @@ export const cartSlice = createSlice({
 		},
 
 		minusItem(state, action) {
-			const existingItem = state.items.find(
-				item => item.id === action.payload.id
-			);
+			const existingItem = findExistingItem(state.items, action.payload);
+
 			if (existingItem && existingItem.count !== 1) {
 				existingItem.count -= 1;
 			} else if (existingItem && existingItem.count === 1) {
-				state.items = state.items.filter(item => item.id !== action.payload.id);
+				state.items = onRemoveItem(state.items, action.payload);
 			}
 			state.totalPrice = calculateTotalPrice(state.items);
 		},
 		plusItem(state, action) {
-			const existingItem = state.items.find(
-				item => item.id === action.payload.id
-			);
+			const existingItem = findExistingItem(state.items, action.payload);
+
 			if (existingItem) {
 				existingItem.count++;
 			}
@@ -52,7 +70,7 @@ export const cartSlice = createSlice({
 		},
 
 		removeItem(state, action) {
-			state.items = state.items.filter(item => item.id !== action.payload.id);
+			state.items = onRemoveItem(state.items, action.payload);
 			state.totalPrice = calculateTotalPrice(state.items);
 		},
 
