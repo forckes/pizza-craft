@@ -7,18 +7,19 @@ import PizzaCard from "../components/PizzaCard/PizzaCard";
 import PizzaLoader from "../components/SkeletonLoaders/PizzaLoader";
 import PizzaPagination from "../components/Pagination/Pagination";
 import { sortItems } from "../components/Sort/Sort";
+import ErrorView from "../components/ErrorView/ErrorView";
 
 //additional libs
 import LazyLoad from "react-lazyload";
 import LoadingBar from "react-top-loading-bar";
 import qs from "qs";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 //rtk
 import { useSelector, useDispatch } from "react-redux";
 import { getCategoryId, getSort, getCurrentPage } from "../redux/filterSlice";
-import { setCurrentPage, setFilters, initialState } from "../redux/filterSlice";
+import { setCurrentPage, setFilters } from "../redux/filterSlice";
 
 //rtk query
 import { useGetPizzasQuery } from "../services/pizzas";
@@ -27,10 +28,9 @@ export default function HomePage({ searchValue }) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const isSearch = useRef(false);
 	const isMounted = useRef(false);
 
-	const [pizzas, setPizzas] = useState([]);
+	// const [pizzas, setPizzas] = useState([]);
 	const [progress, setProgress] = useState(0);
 
 	const categoryId = useSelector(getCategoryId);
@@ -44,15 +44,11 @@ export default function HomePage({ searchValue }) {
 		currentData,
 		error,
 		isFetching,
-		isUninitialized,
 		isError,
-		isSuccess,
-		isLoading,
-		refetch
+		isSuccess
 	} = useGetPizzasQuery(
 		{ sort, categoryId, currentPage, searchValue },
 		{
-			refetchOnFocus: true,
 			refetchOnReconnect: true
 		}
 	);
@@ -72,8 +68,6 @@ export default function HomePage({ searchValue }) {
 			);
 
 			dispatch(setFilters({ ...params, sort }));
-
-			isSearch.current = true;
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch]);
@@ -94,7 +88,7 @@ export default function HomePage({ searchValue }) {
 		} else {
 			setProgress(100);
 		}
-		isSearch.current = false;
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [data, categoryId, searchValue, sort.sortProperty, currentPage]);
 
@@ -126,7 +120,7 @@ export default function HomePage({ searchValue }) {
 					transitionTime={700}
 				/>
 
-				<ContentTop pizzas={pizzas} />
+				<ContentTop pizzas={data} />
 
 				<h2 className='content__title'>Всі піци</h2>
 				<div className='content__items'>
@@ -148,6 +142,7 @@ export default function HomePage({ searchValue }) {
 								)}
 							</LazyLoad>
 						))}
+					{isError && <ErrorView error={error} />}
 				</div>
 				{categoryId === 0 ? (
 					<PizzaPagination

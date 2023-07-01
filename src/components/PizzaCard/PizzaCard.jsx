@@ -1,4 +1,6 @@
 import { useState, useRef } from "react";
+import { Link } from "react-router-dom";
+
 import PizzaCardBottom from "../PizzaCardBottom/PizzaCardBottom";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -64,9 +66,11 @@ export default function PizzaCard({
 
 	return (
 		<div className='pizza-block'>
-			<img className='pizza-block__image' src={imageUrl} alt='Pizza' />
+			<Link to={`pizza/${id}`}>
+				<img className='pizza-block__image' src={imageUrl} alt='Pizza' />
 
-			<h4 className='pizza-block__title'>{title}</h4>
+				<h4 className='pizza-block__title'>{title}</h4>
+			</Link>
 			<div className='pizza-block__selector'>
 				<ul>
 					{types.map((type, idx) => (
