@@ -15,10 +15,13 @@ import qs from "qs";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-//redux
+//rtk
 import { useSelector, useDispatch } from "react-redux";
 import { getCategoryId, getSort, getCurrentPage } from "../redux/filterSlice";
 import { setCurrentPage, setFilters, initialState } from "../redux/filterSlice";
+
+//rtk query
+import { useGetPizzasQuery } from "../services/pizzas";
 
 export default function HomePage({ searchValue }) {
 	const dispatch = useDispatch();
@@ -33,29 +36,39 @@ export default function HomePage({ searchValue }) {
 	const categoryId = useSelector(getCategoryId);
 	const sort = useSelector(getSort);
 	const currentPage = useSelector(getCurrentPage);
+	//
+
+	//getPizzasQuery
+	const {
+		data = [],
+		currentData,
+		error,
+		isFetching,
+		isUninitialized,
+		isError,
+		isSuccess,
+		isLoading,
+		refetch
+	} = useGetPizzasQuery(
+		{ sort, categoryId, currentPage, searchValue },
+		{
+			refetchOnFocus: true,
+			refetchOnReconnect: true
+		}
+	);
 
 	//functions
 	const handlePageChange = (event, newPage) => {
 		dispatch(setCurrentPage(newPage));
 	};
 
-	//fetch pizzas func
-
 	//useEffects
 	useEffect(() => {
 		if (window.location.search) {
 			const params = qs.parse(window.location.search.substring(1));
 
-			if (
-				initialState.categoryId === Number(params.categoryId) &&
-				initialState.sort?.sortProperty === params.sortProperty &&
-				initialState.currentPage === Number(params.currentPage)
-			) {
-				fetchPizzas();
-			}
-
 			const sort = sortItems.find(
-				obj => obj?.sortProperty === params.sortProperty
+				obj => obj.sortProperty === params.sortProperty
 			);
 
 			dispatch(setFilters({ ...params, sort }));
@@ -66,19 +79,24 @@ export default function HomePage({ searchValue }) {
 	}, [dispatch]);
 
 	useEffect(() => {
-		if (categoryId !== 0) {
+		if (categoryId !== 0 || searchValue !== "") {
 			dispatch(setCurrentPage(1));
 		}
+	}, [categoryId, dispatch, searchValue]);
 
-		setProgress(progress + 35);
+	//here
+
+	useEffect(() => {
 		window.scrollTo(0, 0);
-		if (!isSearch.current) {
-			fetchPizzas();
-		}
 
+		if (isFetching) {
+			setProgress(45);
+		} else {
+			setProgress(100);
+		}
 		isSearch.current = false;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [categoryId, searchValue, sort.sortProperty, currentPage]);
+	}, [data, categoryId, searchValue, sort.sortProperty, currentPage]);
 
 	useEffect(() => {
 		if (isMounted.current) {
@@ -99,41 +117,37 @@ export default function HomePage({ searchValue }) {
 	return (
 		<div className='content'>
 			<div className='container'>
-				{progress !== 0 ? (
-					<LoadingBar
-						color='#fe5f1e'
-						progress={progress}
-						onLoaderFinished={() => setProgress(0)}
-						shadow={true}
-						height={5}
-						transitionTime={700}
-					/>
-				) : (
-					""
-				)}
+				<LoadingBar
+					color='#fe5f1e'
+					progress={progress}
+					onLoaderFinished={() => setProgress(0)}
+					shadow={true}
+					height={5}
+					transitionTime={700}
+				/>
 
 				<ContentTop pizzas={pizzas} />
 
 				<h2 className='content__title'>Всі піци</h2>
 				<div className='content__items'>
-					{pizzas.map(({ imageUrl, name, price, id, sizes, types }) => (
-						<LazyLoad
-							placeholder={<PizzaLoader key={id} />}
-							debounce={300}
-							once={true}
-							key={id}
-						>
-							<PizzaCard
-								key={id}
-								id={id}
-								imageUrl={imageUrl}
-								title={name}
-								price={price}
-								sizes={sizes}
-								types={types}
-							/>
-						</LazyLoad>
-					))}
+					{isSuccess &&
+						data.map(({ imageUrl, name, price, id, sizes, types }) => (
+							<LazyLoad debounce={300} once={true} key={id}>
+								{isFetching && !currentData ? (
+									<PizzaLoader key={id} />
+								) : (
+									<PizzaCard
+										key={id}
+										id={id}
+										imageUrl={imageUrl}
+										title={name}
+										price={price}
+										sizes={sizes}
+										types={types}
+									/>
+								)}
+							</LazyLoad>
+						))}
 				</div>
 				{categoryId === 0 ? (
 					<PizzaPagination

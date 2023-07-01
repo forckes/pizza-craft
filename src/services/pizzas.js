@@ -7,20 +7,17 @@ export const pizzasApi = createApi({
 	}),
 	endpoints: builder => ({
 		getPizzas: builder.query({
-			query: ({
-				categoryId,
-				searchValue,
-				sortProperty,
-				currentPage,
-				limit
-			}) => {
-				const sortBy = sortProperty.replace("-", "");
-				const order = sortProperty.includes("-") ? "asc" : "desc";
+			query: ({ sort, categoryId, searchValue, currentPage }) => {
+				const sortBy = sort.sortProperty.replace("-", "");
+				const order = sort.sortProperty.includes("-") ? "asc" : "desc";
 				const category = categoryId > 0 ? `category=${categoryId}` : "";
 				const search = searchValue !== "" ? `search=${searchValue}` : "";
-				const page = currentPage > 0 ? `page=${currentPage}` : "";
-				// const url = `${BASE_URL}?sortBy=${sortBy}&order=${order}&limit=${limit}`;
-				// return { url };
+				let limit = 4;
+				if (window.innerWidth <= 1400) {
+					limit = 3;
+				}
+				const url = `?page=${currentPage}&limit=${limit}&${category}&sortBy=${sortBy}&order=${order}&${search}`;
+				return { url };
 			}
 		})
 	})
