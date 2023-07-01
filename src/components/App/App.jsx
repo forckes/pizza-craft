@@ -13,13 +13,15 @@ import {
 // components
 import Header from "../Header/Header";
 import NotFoundPage from "../NotFoundPage/NotFoundPage";
+import ErrorView from "../ErrorView/ErrorView";
 
-//lazy components
+//lazy pages components
 const HomePage = lazy(() => import("../../pages/HomePage"));
 const CartPage = lazy(() => import("../../pages/CartPage"));
+const ItemPage = lazy(() => import("../../pages/ItemPage"));
 
 function ErrorBoundary() {
-	return <div>Error!</div>;
+	return <ErrorView />;
 }
 
 export default function App() {
@@ -39,6 +41,9 @@ export default function App() {
 					index
 					element={<HomePage searchValue={searchValue} />}
 				/>
+
+				<Route path='/pizza/:pizzaId' element={<ItemPage />} />
+
 				<Route
 					errorElement={<ErrorBoundary />}
 					path='cart'
