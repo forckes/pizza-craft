@@ -11,6 +11,10 @@
 
 	&__image {
 		width: 260px;
+		transition: transform 0.2s ease 0s;
+		&:hover {
+			transform: scale(1.03);
+		}
 	}
 
 	&__title {
@@ -19,6 +23,10 @@
 		letter-spacing: 1%;
 		margin-bottom: 20px;
 		width: 100%;
+		&:hover {
+			color: #fe5f1e;
+			text-decoration: underline;
+		}
 	}
 
 	&__selector {
