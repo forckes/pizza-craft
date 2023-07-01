@@ -19,11 +19,14 @@ export const pizzasApi = createApi({
 				const url = `?page=${currentPage}&limit=${limit}&${category}&sortBy=${sortBy}&order=${order}&${search}`;
 				return { url };
 			}
+		}),
+		getPizza: builder.query({
+			query: pizzaId => `/${pizzaId}`
 		})
 	})
 });
 
-export const { useGetPizzasQuery } = pizzasApi;
+export const { useGetPizzasQuery, useGetPizzaQuery } = pizzasApi;
 
 // const fetchPizzas = async () => {
 // 	try {
