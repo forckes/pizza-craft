@@ -13,7 +13,6 @@ import ErrorView from "../components/ErrorView/ErrorView";
 import LazyLoad from "react-lazyload";
 import LoadingBar from "react-top-loading-bar";
 import qs from "qs";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 //rtk
@@ -153,7 +152,6 @@ export default function HomePage({ searchValue }) {
 					""
 				)}
 			</div>
-			<ToastContainer autoClose={2000} />
 		</div>
 	);
 }
