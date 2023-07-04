@@ -1,17 +1,28 @@
 import { useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 
+//icons
 import { HiOutlinePlus } from "react-icons/hi";
+import { BiCategory } from "react-icons/bi";
+import { CiPizza } from "react-icons/ci";
+import { GiFullPizza } from "react-icons/gi";
+import { BsListStars } from "react-icons/bs";
+import { FaMoneyBill } from "react-icons/fa";
 
+//redux logic
 import { useGetPizzaQuery } from "../services/pizzas";
 import { useSelector, useDispatch } from "react-redux";
 import { addItem } from "../redux/cartSlice";
 
+//additional libs
 import LoadingBar from "react-top-loading-bar";
 import { toast } from "react-toastify";
+import { Rating } from "@mui/material";
 
+//components
 import ErrorView from "../components/ErrorView/ErrorView";
 
+//info from components
 import { CategoriesItems } from "../components/Categories/Categories";
 import { pizzaTypes } from "../components/PizzaCard/PizzaCard";
 
@@ -43,11 +54,7 @@ export default function ItemPage() {
 		if (!toast.isActive(toastId.current)) {
 			toastId.current = toast.success(
 				` *${name}*
-				додана до корзини`,
-				{
-					hideProgressBar: false,
-					position: "top-right"
-				}
+				додана до корзини`
 			);
 		}
 	};
@@ -89,61 +96,92 @@ export default function ItemPage() {
 				/>
 				{isFetching && !currentData ? <h1>Skeleton</h1> : ""}
 				{isSuccess && (
-					<div className='pizzaPage__content'>
+					<div className='pizzaPage__container'>
 						<div className='pizzaPage__asideImg'>
 							<img className='pizzaPage__img' src={imageUrl} alt={name} />
 						</div>
-						<div className='pizzaPage__asideContent'>
+						<div className='pizzaPage__content'>
 							<h2 className='pizzaPage__title'>{name}</h2>
-							<div className='pizzaPage__info'>
-								<p className='pizzaPage__infoItem'>
-									Категорія:
-									<span> {CategoriesItems[category]}</span>
-								</p>
-								<div className='pizza-block__selector'>
-									<div className='pizzaPage__selectorBox'>
-										<p>Вид тіста</p>
-										<ul className='pizzaPage__infoItem'>
-											{types.map((type, idx) => (
-												<li
-													key={idx}
-													onClick={() => setActiveTypeIdx(idx)}
-													className={activeTypeIdx === idx ? "active" : ""}
-												>
-													{pizzaTypes[type]}
-												</li>
-											))}
-										</ul>
+							<div className='pizzaPage__contentBox'>
+								<div className='pizzaPage__userBox'>
+									<div className='pizzaPage__rating'>
+										<Rating
+											className='pizzaPage__stars'
+											name='half-rating-read'
+											defaultValue={rating / 2}
+											precision={0.5}
+											size='large'
+											readOnly
+										/>
+										<p>
+											<BsListStars size={26} />
+											{rating} / 10
+										</p>
 									</div>
-									<div className='pizzaPage__selectorBox'>
-										<ul
-											className='
-									pizzaPage__infoItem'
+									<div className='pizzaPage__payment'>
+										<div className='pizzaPage__payment__price'>
+											<FaMoneyBill size={50} /> {price} ₴
+										</div>
+										<button
+											onClick={() => onClickAdd()}
+											type='button'
+											className='pizzaPage__payment__button'
 										>
-											{sizes.map((size, idx) => (
-												<li
-													key={idx}
-													onClick={() => setActiveSizeIdx(idx)}
-													className={activeSizeIdx === idx ? "active" : ""}
-												>
-													{size} см.
-												</li>
-											))}
-										</ul>
+											<HiOutlinePlus size={24} />
+											<span>Додати піцу</span>
+											<i>{count === undefined ? 0 : count}</i>
+										</button>
 									</div>
 								</div>
-							</div>
-							<div className='pizzaPage__bottom'>
-								<div className='pizzaPage__bottom__price'>{price} ₴</div>
-								<button
-									onClick={() => onClickAdd()}
-									type='button'
-									className='button button--outline button--add'
-								>
-									<HiOutlinePlus size={24} />
-									<span>Додати</span>
-									<i>{count === undefined ? 0 : count}</i>
-								</button>
+								<div className='pizzaPage__info'>
+									<div className='pizzaPage__infoCategory'>
+										<p className='pizzaPage__infoLabel'>
+											<BiCategory size={28} />
+											Категорія:
+										</p>
+										<span>{CategoriesItems[category]}</span>
+									</div>
+									<div className='pizzaPage__selector'>
+										<div className='pizzaPage__infoItem'>
+											<p className='pizzaPage__infoLabel'>
+												<CiPizza size={34} />
+												Вибрати вид тіста:
+											</p>
+											<ul className='pizzaPage__infoSelect'>
+												{types.map((type, idx) => (
+													<li
+														key={idx}
+														onClick={() => setActiveTypeIdx(idx)}
+														className={activeTypeIdx === idx ? "active" : ""}
+													>
+														{pizzaTypes[type]}
+													</li>
+												))}
+											</ul>
+										</div>
+										<div className='pizzaPage__infoItem'>
+											<p className='pizzaPage__infoLabel'>
+												<GiFullPizza size={32} />
+												Вибрати розмір піци:
+											</p>
+
+											<ul
+												className='
+									pizzaPage__infoSelect'
+											>
+												{sizes.map((size, idx) => (
+													<li
+														key={idx}
+														onClick={() => setActiveSizeIdx(idx)}
+														className={activeSizeIdx === idx ? "active" : ""}
+													>
+														{size} см.
+													</li>
+												))}
+											</ul>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>

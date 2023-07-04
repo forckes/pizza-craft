@@ -42,11 +42,7 @@ export default function PizzaCard({
 		if (!toast.isActive(toastId.current)) {
 			toastId.current = toast.success(
 				` *${title}*
-				додана до корзини`,
-				{
-					hideProgressBar: false,
-					position: "top-right"
-				}
+				додана до корзини`
 			);
 		}
 	};

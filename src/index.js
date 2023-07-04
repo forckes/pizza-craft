@@ -3,12 +3,14 @@ import ReactDOM from "react-dom/client";
 import App from "./components/App/App";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.jsx";
+import { ToastContainer } from "react-toastify";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<App />
+			<ToastContainer position='top-center' autoClose={2000} />
 		</Provider>
 	</React.StrictMode>
 );

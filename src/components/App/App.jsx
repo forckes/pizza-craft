@@ -9,7 +9,6 @@ import {
 	RouterProvider,
 	Route
 } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 
 // components
 import Header from "../Header/Header";
@@ -57,7 +56,6 @@ export default function App() {
 	return (
 		<div className='wrapper'>
 			<RouterProvider router={router} />
-			<ToastContainer autoClose={2000} />
 		</div>
 	);
 }
