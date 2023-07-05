@@ -13,7 +13,7 @@ import {
 // components
 import Header from "../Header/Header";
 import NotFoundPage from "../NotFoundPage/NotFoundPage";
-import ErrorView from "../ErrorView/ErrorView";
+import { ErrorView } from "../ErrorView/ErrorView";
 
 //lazy pages components
 const HomePage = lazy(() => import("../../pages/HomePage"));

@@ -10,7 +10,6 @@ import { sortItems } from "../components/Sort/Sort";
 import ErrorView from "../components/ErrorView/ErrorView";
 
 //additional libs
-import LazyLoad from "react-lazyload";
 import LoadingBar from "react-top-loading-bar";
 import qs from "qs";
 import "react-toastify/dist/ReactToastify.css";
@@ -125,7 +124,7 @@ export default function HomePage({ searchValue }) {
 				<div className='content__items'>
 					{isSuccess &&
 						data.map(({ imageUrl, name, price, id, sizes, types }) => (
-							<LazyLoad debounce={300} once={true} key={id}>
+							<>
 								{isFetching && !currentData ? (
 									<PizzaLoader key={id} />
 								) : (
@@ -139,9 +138,9 @@ export default function HomePage({ searchValue }) {
 										types={types}
 									/>
 								)}
-							</LazyLoad>
+							</>
 						))}
-					{isError && <ErrorView error={error} />}
+					{isError && <ErrorView />}
 				</div>
 				{categoryId === 0 ? (
 					<PizzaPagination
