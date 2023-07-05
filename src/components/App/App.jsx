@@ -1,4 +1,4 @@
-import React, { lazy, useState } from "react";
+import { lazy, useState } from "react";
 
 //styles
 import "../../scss/app.scss";
@@ -20,20 +20,24 @@ const HomePage = lazy(() => import("../../pages/HomePage"));
 const CartPage = lazy(() => import("../../pages/CartPage"));
 const ItemPage = lazy(() => import("../../pages/ItemPage"));
 
+function ErrorBoundary() {
+	return <ErrorView />;
+}
+
 export default function App() {
 	const [searchValue, setSearchValue] = useState("");
 
 	const router = createBrowserRouter(
 		createRoutesFromElements(
 			<Route
-				errorElement={<ErrorView />}
+				errorElement={<ErrorBoundary />}
 				path='/'
 				element={
 					<Header searchValue={searchValue} setSearchValue={setSearchValue} />
 				}
 			>
 				<Route
-					errorElement={<ErrorView />}
+					errorElement={<ErrorBoundary />}
 					index
 					element={<HomePage searchValue={searchValue} />}
 				/>
@@ -41,7 +45,7 @@ export default function App() {
 				<Route path='/pizza/:pizzaId' element={<ItemPage />} />
 
 				<Route
-					errorElement={<ErrorView />}
+					errorElement={<ErrorBoundary />}
 					path='cart'
 					element={<CartPage />}
 				/>

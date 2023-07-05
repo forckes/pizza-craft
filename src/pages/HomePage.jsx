@@ -141,7 +141,7 @@ export default function HomePage({ searchValue }) {
 								)}
 							</LazyLoad>
 						))}
-					{isError && <ErrorView />}
+					{isError && <ErrorView error={error} />}
 				</div>
 				{categoryId === 0 ? (
 					<PizzaPagination

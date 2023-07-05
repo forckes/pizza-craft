@@ -186,7 +186,7 @@ export default function ItemPage() {
 						</div>
 					</div>
 				)}
-				{isError && <ErrorView />}
+				{isError && <ErrorView error={error} />}
 			</div>
 		</div>
 	);
