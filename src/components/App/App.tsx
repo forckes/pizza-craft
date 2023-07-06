@@ -1,4 +1,4 @@
-import { lazy, LazyExoticComponent, useState } from "react";
+import { lazy, useState } from "react";
 
 //styles
 import "../../scss/app.scss";
@@ -18,9 +18,7 @@ import { ErrorView } from "../ErrorView/ErrorView";
 //lazy pages components
 const HomePage = lazy(() => import("../../pages/HomePage"));
 const CartPage = lazy(() => import("../../pages/CartPage"));
-const ItemPage: LazyExoticComponent<React.FC<{}>> = lazy(
-	() => import("../../pages/ItemPage")
-);
+const ItemPage = lazy(() => import("../../pages/ItemPage"));
 function ErrorBoundary() {
 	return <ErrorView />;
 }

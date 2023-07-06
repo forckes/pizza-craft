@@ -26,7 +26,7 @@ import { ErrorView } from "../components/ErrorView/ErrorView";
 import { CategoriesItems } from "../components/Categories/Categories";
 import { pizzaTypes } from "../components/PizzaCard/PizzaCard";
 
-export const ItemPage: React.FC<{}> = () => {
+ const ItemPage: React.FC<{}> = () => {
 	const { pizzaId } = useParams();
 
 	const [progress, setProgress] = useState(0);
@@ -189,4 +189,5 @@ export const ItemPage: React.FC<{}> = () => {
 			</div>
 		</div>
 	);
-};
+												}
+export default ItemPage as React.FC
