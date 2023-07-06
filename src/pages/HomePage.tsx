@@ -7,7 +7,7 @@ import PizzaCard from "../components/PizzaCard/PizzaCard";
 import PizzaLoader from "../components/SkeletonLoaders/PizzaLoader";
 import PizzaPagination from "../components/Pagination/Pagination";
 import { sortItems } from "../components/Sort/Sort";
-import ErrorView from "../components/ErrorView/ErrorView";
+import { ErrorView } from "../components/ErrorView/ErrorView";
 
 //additional libs
 import LoadingBar from "react-top-loading-bar";
@@ -22,6 +22,7 @@ import { setCurrentPage, setFilters } from "../redux/filterSlice";
 //rtk query
 import { useGetPizzasQuery } from "../services/pizzas";
 
+//interface
 interface ISearchedValue {
 	searchValue: string;
 }
@@ -32,13 +33,11 @@ const HomePage: FC<ISearchedValue> = ({ searchValue }) => {
 
 	const isMounted = useRef(false);
 
-	// const [pizzas, setPizzas] = useState([]);
 	const [progress, setProgress] = useState(0);
 
 	const categoryId = useSelector(getCategoryId);
 	const sort = useSelector(getSort);
 	const currentPage = useSelector(getCurrentPage);
-	//
 
 	//getPizzasQuery
 	const {
@@ -78,8 +77,6 @@ const HomePage: FC<ISearchedValue> = ({ searchValue }) => {
 			dispatch(setCurrentPage(1));
 		}
 	}, [categoryId, dispatch, searchValue]);
-
-	//here
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -121,7 +118,7 @@ const HomePage: FC<ISearchedValue> = ({ searchValue }) => {
 					transitionTime={700}
 				/>
 
-				<ContentTop pizzas={data} />
+				<ContentTop />
 
 				<h2 className='content__title'>Всі піци</h2>
 				<div className='content__items'>
