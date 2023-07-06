@@ -23,6 +23,9 @@ import { setCurrentPage, setFilters } from "../redux/filterSlice";
 import { useGetPizzasQuery } from "../services/pizzas";
 
 //interface
+import { IData } from "../types/data.interface";
+
+//interface
 interface ISearchedValue {
 	searchValue: string;
 }
@@ -41,7 +44,7 @@ const HomePage: FC<ISearchedValue> = ({ searchValue }) => {
 
 	//getPizzasQuery
 	const {
-		data = [],
+		data = [] as IData[],
 		currentData,
 		isFetching,
 		isError,
@@ -123,7 +126,7 @@ const HomePage: FC<ISearchedValue> = ({ searchValue }) => {
 				<h2 className='content__title'>Всі піци</h2>
 				<div className='content__items'>
 					{isSuccess &&
-						data.map(({ imageUrl, name, price, id, sizes, types }) => (
+						data.map(({ imageUrl, name, price, id, sizes, types }: IData) => (
 							<>
 								{isFetching && !currentData ? (
 									<PizzaLoader key={id} />
