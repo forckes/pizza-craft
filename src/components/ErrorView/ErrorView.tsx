@@ -1,6 +1,6 @@
-import React, { FC } from "react";
+import React from "react";
 
-export const ErrorView: FC = () => {
+export const ErrorView: React.FC = () => {
 	return (
 		<div>
 			<h1>Error!</h1>

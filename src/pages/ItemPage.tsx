@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 
 //icons
@@ -20,13 +20,13 @@ import { toast } from "react-toastify";
 import { Rating } from "@mui/material";
 
 //components
-import ErrorView from "../components/ErrorView/ErrorView";
+import { ErrorView } from "../components/ErrorView/ErrorView";
 
 //info from components
 import { CategoriesItems } from "../components/Categories/Categories";
 import { pizzaTypes } from "../components/PizzaCard/PizzaCard";
 
-export default function ItemPage() {
+export const ItemPage: React.FC<{}> = () => {
 	const { pizzaId } = useParams();
 
 	const [progress, setProgress] = useState(0);
@@ -40,7 +40,6 @@ export default function ItemPage() {
 	const {
 		data = {},
 		currentData,
-		error,
 		isFetching,
 		isError,
 		isSuccess
@@ -73,7 +72,7 @@ export default function ItemPage() {
 	};
 
 	const { count } = useSelector(
-		state =>
+		state: =>
 			state.cart.items.find(obj => {
 				return (
 					obj.id === id &&
@@ -190,4 +189,4 @@ export default function ItemPage() {
 			</div>
 		</div>
 	);
-}
+};
