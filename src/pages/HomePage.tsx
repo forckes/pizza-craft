@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 //components
@@ -22,7 +22,11 @@ import { setCurrentPage, setFilters } from "../redux/filterSlice";
 //rtk query
 import { useGetPizzasQuery } from "../services/pizzas";
 
-export default function HomePage({ searchValue }) {
+interface ISearchedValue {
+	searchValue: string;
+}
+
+const HomePage: FC<ISearchedValue> = ({ searchValue }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -40,7 +44,6 @@ export default function HomePage({ searchValue }) {
 	const {
 		data = [],
 		currentData,
-		error,
 		isFetching,
 		isError,
 		isSuccess
@@ -52,7 +55,7 @@ export default function HomePage({ searchValue }) {
 	);
 
 	//functions
-	const handlePageChange = (event, newPage) => {
+	const handlePageChange = (event: MouseEvent, newPage: number) => {
 		dispatch(setCurrentPage(newPage));
 	};
 
@@ -153,4 +156,5 @@ export default function HomePage({ searchValue }) {
 			</div>
 		</div>
 	);
-}
+};
+export default HomePage;
