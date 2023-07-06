@@ -11,8 +11,12 @@ import { FaMoneyBill } from "react-icons/fa";
 
 //redux logic
 import { useGetPizzaQuery } from "../services/pizzas";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addItem } from "../redux/cartSlice";
+import { useTypedSelector } from "../hooks/useTypedSelector";
+
+//interface
+import { IDataItem } from "../types/dataItem.interface";
 
 //additional libs
 import LoadingBar from "react-top-loading-bar";
@@ -25,6 +29,15 @@ import { ErrorView } from "../components/ErrorView/ErrorView";
 //info from components
 import { CategoriesItems } from "../components/Categories/Categories";
 import { pizzaTypes } from "../components/PizzaCard/PizzaCard";
+
+export interface IItem {
+	id: string;
+	imageUrl: string;
+	title: string;
+	price: number;
+	size: number;
+	type: string;
+}
 
 const ItemPage: React.FC<{}> = () => {
 	const { pizzaId } = useParams<string>();
@@ -59,7 +72,7 @@ const ItemPage: React.FC<{}> = () => {
 	};
 
 	const onClickAdd = () => {
-		const item = {
+		const item: IItem = {
 			id,
 			imageUrl,
 			title: name,
@@ -71,9 +84,9 @@ const ItemPage: React.FC<{}> = () => {
 		notify();
 	};
 
-	const { count } = useSelector(
+	const { count } = useTypedSelector(
 		state =>
-			state.cart.items.find(obj => {
+			state.cart.items.find((obj: IDataItem) => {
 				return (
 					obj.id === id &&
 					obj.type === pizzaTypes[activeTypeIdx] &&

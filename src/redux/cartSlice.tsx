@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IData } from "../types/data.interface";
+import { IDataItem } from "../types/dataItem.interface";
 
 interface ICartItem extends IData {
 	size: number;
@@ -83,7 +84,7 @@ export const cartSlice = createSlice({
 	name: "cart",
 	initialState,
 	reducers: {
-		addItem(state, action: PayloadAction<IData>) {
+		addItem(state, action: PayloadAction<IDataItem>) {
 			const existingItem = findExistingItem(state.items, {
 				id: action.payload.id,
 				type: action.payload.type,

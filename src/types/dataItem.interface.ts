@@ -1,5 +1,8 @@
 export interface IDataItem {
 	id: string;
-	type: number;
+	imageUrl: string;
+	title: string;
+	price: number;
 	size: number;
+	type: number;
 }
