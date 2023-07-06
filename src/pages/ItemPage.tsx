@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, MutableRefObject } from "react";
 import { useParams } from "react-router-dom";
 
 //icons
@@ -16,7 +16,7 @@ import { addItem } from "../redux/cartSlice";
 
 //additional libs
 import LoadingBar from "react-top-loading-bar";
-import { toast } from "react-toastify";
+import { Id, toast } from "react-toastify";
 import { Rating } from "@mui/material";
 
 //components
@@ -26,8 +26,8 @@ import { ErrorView } from "../components/ErrorView/ErrorView";
 import { CategoriesItems } from "../components/Categories/Categories";
 import { pizzaTypes } from "../components/PizzaCard/PizzaCard";
 
- const ItemPage: React.FC<{}> = () => {
-	const { pizzaId } = useParams();
+const ItemPage: React.FC<{}> = () => {
+	const { pizzaId } = useParams<string>();
 
 	const [progress, setProgress] = useState(0);
 	const [activeTypeIdx, setActiveTypeIdx] = useState(0);
@@ -35,7 +35,7 @@ import { pizzaTypes } from "../components/PizzaCard/PizzaCard";
 
 	const dispatch = useDispatch();
 
-	const toastId = useRef(null);
+	const toastId = useRef<Id>(null!); //wow
 
 	const {
 		data = {},
@@ -72,7 +72,7 @@ import { pizzaTypes } from "../components/PizzaCard/PizzaCard";
 	};
 
 	const { count } = useSelector(
-		state: =>
+		state =>
 			state.cart.items.find(obj => {
 				return (
 					obj.id === id &&
@@ -189,5 +189,5 @@ import { pizzaTypes } from "../components/PizzaCard/PizzaCard";
 			</div>
 		</div>
 	);
-												}
-export default ItemPage as React.FC
+};
+export default ItemPage as React.FC;
