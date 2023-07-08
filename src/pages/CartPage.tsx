@@ -1,13 +1,14 @@
-import React from "react";
+import React, { FC } from "react";
 
 import CartDataView from "../components/CartDataView/CartDataView";
 import CartEmptyView from "../components/CartEmptyView/CartEmptyView";
 
-import { useSelector } from "react-redux";
 import { getItemsList } from "../redux/cartSlice";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 
-export default function CartPage() {
-	const cartItems = useSelector(getItemsList);
+const CartPage: FC = () => {
+	const cartItems = useTypedSelector(getItemsList);
 
 	return <>{cartItems.length === 0 ? <CartEmptyView /> : <CartDataView />}</>;
-}
+};
+export default CartPage;

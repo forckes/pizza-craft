@@ -94,7 +94,15 @@ export const cartSlice = createSlice({
 			if (existingItem) {
 				existingItem.count += 1;
 			} else {
-				state.items.push({ ...action.payload, count: 1 });
+				state.items.push({
+					...action.payload,
+					count: 1,
+					name: "",
+					types: [],
+					sizes: [],
+					category: 0,
+					rating: 0
+				});
 			}
 			state.totalPrice = calculateTotalPrice(state.items);
 		},
