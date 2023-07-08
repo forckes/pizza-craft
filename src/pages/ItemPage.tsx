@@ -12,7 +12,7 @@ import { FaMoneyBill } from "react-icons/fa";
 //redux logic
 import { useGetPizzaQuery } from "../services/pizzas";
 import { useDispatch } from "react-redux";
-import { ICartItem, addItem } from "../redux/cartSlice";
+import { CartSliceState, addItem } from "../redux/cartSlice";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 
 //additional libs
@@ -87,12 +87,12 @@ const ItemPage: React.FC<{}> = () => {
 
 	const { count } = useTypedSelector(state =>
 		state.cart.items.find(
-			(obj: ICartItem) =>
+			(obj: CartSliceState) =>
 				obj.id === id &&
 				obj.type === activeTypeIdx &&
 				obj.size === sizes[activeSizeIdx]
 		)
-	) as ICartItem;
+	) as CartSliceState;
 
 	return (
 		<div className='pizzaPage'>

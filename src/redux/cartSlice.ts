@@ -2,48 +2,53 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IData } from "../types/data.interface";
 import { IDataItem } from "../types/dataItem.interface";
 
-export interface ICartItem extends IData {
-	size: number;
-	type: number;
-	count: number;
-}
-
-interface ICartState {
-	items: ICartItem[];
+export interface CartSliceState {
 	totalPrice: number;
+	items: IDataItem[];
 }
 
-interface IFindExistingItemPayload {
-	id: string;
-	type: number;
-	size: number;
-}
+// export interface ICartItem extends IData {
+// 	size: number;
+// 	type: number;
+// 	count: number;
+// }
 
-interface IRemoveItemPayload {
-	id: string;
-	type: number;
-	size: number;
-}
+// interface ICartState {
+// 	items: ICartItem[];
+// 	totalPrice: number;
+// }
 
-interface IFindExistingItemFunction {
-	(items: ICartItem[], payload: IFindExistingItemPayload):
-		| ICartItem
-		| undefined;
-}
+// interface IFindExistingItemPayload {
+// 	id: string;
+// 	type: number;
+// 	size: number;
+// }
 
-interface IOnRemoveItemFunction {
-	(items: ICartItem[], payload: IRemoveItemPayload): ICartItem[];
-}
+// interface IRemoveItemPayload {
+// 	id: string;
+// 	type: number;
+// 	size: number;
+// }
 
-interface ICalculateTotalPriceFunction {
-	(items: ICartItem[]): number;
-}
+// interface IFindExistingItemFunction {
+// 	(items: ICartItem[], payload: IFindExistingItemPayload):
+// 		| ICartItem
+// 		| undefined;
+// }
 
-// Define a new interface that extends IData and adds the type and size properties
-interface ICartItemPayload extends IData {
-	type: number;
-	size: number;
-}
+// interface IOnRemoveItemFunction {
+// 	(items: ICartItem[], payload: IRemoveItemPayload): ICartItem[];
+// }
+
+// interface ICalculateTotalPriceFunction {
+// 	(items: ICartItem[]): number;
+// }
+
+// // Define a new interface that extends IData and adds the type and size properties
+// interface ICartItemPayload extends IData {
+// 	type: number;
+// 	size: number;
+// }
 
 const findExistingItem: IFindExistingItemFunction = (items, payload) => {
 	return items.find(item => {
@@ -75,7 +80,7 @@ const calculateTotalPrice: ICalculateTotalPriceFunction = items => {
 	}
 };
 
-const initialState: ICartState = {
+const initialState: CartSliceState = {
 	items: [],
 	totalPrice: 0
 };
