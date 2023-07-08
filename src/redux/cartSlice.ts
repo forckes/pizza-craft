@@ -2,11 +2,19 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IData } from "../types/data.interface";
 import { IDataItem } from "../types/dataItem.interface";
 
+//for initial state
 export interface CartSliceState {
 	totalPrice: number;
 	items: IDataItem[];
 }
+interface ICartState extends CartSliceState {
+	cart: {
+		totalPrice: number;
+		items: IDataItem[];
+	};
+}
 
+//for funcs
 interface IFindExistingItemPayload {
 	id: string;
 	type: string;
@@ -33,6 +41,7 @@ interface ICalculateTotalPriceFunction {
 	(items: IDataItem[]): number;
 }
 
+//funcs
 const findExistingItem: IFindExistingItemFunction = (items, payload) => {
 	return items.find(item => {
 		return (
@@ -63,11 +72,13 @@ const calculateTotalPrice: ICalculateTotalPriceFunction = items => {
 	}
 };
 
+//initial state
 const initialState: CartSliceState = {
 	items: [],
 	totalPrice: 0
 };
 
+//slice
 export const cartSlice = createSlice({
 	name: "cart",
 	initialState,
@@ -134,8 +145,10 @@ export const cartSlice = createSlice({
 	}
 });
 
-export const getItemsList = state => state.cart.items;
-export const getTotalPrice = state => state.cart.totalPrice;
+//selectors
+export const getItemsList = (state: ICartState) => state.cart.items;
+export const getTotalPrice = (state: ICartState) => state.cart.totalPrice;
 
+//actions
 export const { addItem, removeItem, clearItems, minusItem, plusItem } =
 	cartSlice.actions;
