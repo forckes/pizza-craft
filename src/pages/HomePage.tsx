@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 //components
@@ -127,7 +127,7 @@ const HomePage: FC<ISearchedValue> = ({ searchValue }) => {
 				<div className='content__items'>
 					{isSuccess &&
 						data.map(({ imageUrl, name, price, id, sizes, types }: IData) => (
-							<>
+							<React.Fragment key={id}>
 								{isFetching && !currentData ? (
 									<PizzaLoader key={id} />
 								) : (
@@ -141,7 +141,7 @@ const HomePage: FC<ISearchedValue> = ({ searchValue }) => {
 										types={types}
 									/>
 								)}
-							</>
+							</React.Fragment>
 						))}
 					{isError && <ErrorView />}
 				</div>

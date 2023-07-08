@@ -1,5 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+interface IFilter {
+	categoryId: number;
+	currentPage: number;
+	sort: {
+		name: string;
+		sortProperty: string;
+	};
+}
+
 export const initialState = {
 	categoryId: 0,
 	currentPage: 1,
