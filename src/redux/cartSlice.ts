@@ -7,48 +7,31 @@ export interface CartSliceState {
 	items: IDataItem[];
 }
 
-// export interface ICartItem extends IData {
-// 	size: number;
-// 	type: number;
-// 	count: number;
-// }
+interface IFindExistingItemPayload {
+	id: string;
+	type: string;
+	size: number;
+}
 
-// interface ICartState {
-// 	items: ICartItem[];
-// 	totalPrice: number;
-// }
+interface IRemoveItemPayload {
+	id: string;
+	type: string;
+	size: number;
+}
 
-// interface IFindExistingItemPayload {
-// 	id: string;
-// 	type: number;
-// 	size: number;
-// }
+interface IFindExistingItemFunction {
+	(items: IDataItem[], payload: IFindExistingItemPayload):
+		| IDataItem
+		| undefined;
+}
 
-// interface IRemoveItemPayload {
-// 	id: string;
-// 	type: number;
-// 	size: number;
-// }
+interface IOnRemoveItemFunction {
+	(items: IDataItem[], payload: IRemoveItemPayload): IDataItem[];
+}
 
-// interface IFindExistingItemFunction {
-// 	(items: ICartItem[], payload: IFindExistingItemPayload):
-// 		| ICartItem
-// 		| undefined;
-// }
-
-// interface IOnRemoveItemFunction {
-// 	(items: ICartItem[], payload: IRemoveItemPayload): ICartItem[];
-// }
-
-// interface ICalculateTotalPriceFunction {
-// 	(items: ICartItem[]): number;
-// }
-
-// // Define a new interface that extends IData and adds the type and size properties
-// interface ICartItemPayload extends IData {
-// 	type: number;
-// 	size: number;
-// }
+interface ICalculateTotalPriceFunction {
+	(items: IDataItem[]): number;
+}
 
 const findExistingItem: IFindExistingItemFunction = (items, payload) => {
 	return items.find(item => {
@@ -101,18 +84,13 @@ export const cartSlice = createSlice({
 			} else {
 				state.items.push({
 					...action.payload,
-					count: 1,
-					name: "",
-					types: [],
-					sizes: [],
-					category: 0,
-					rating: 0
+					count: 1
 				});
 			}
 			state.totalPrice = calculateTotalPrice(state.items);
 		},
 
-		minusItem(state, action: PayloadAction<ICartItemPayload>) {
+		minusItem(state, action: PayloadAction<IDataItem>) {
 			const existingItem = findExistingItem(state.items, {
 				id: action.payload.id,
 				type: action.payload.type,
@@ -131,7 +109,7 @@ export const cartSlice = createSlice({
 			state.totalPrice = calculateTotalPrice(state.items);
 		},
 
-		plusItem(state, action: PayloadAction<ICartItemPayload>) {
+		plusItem(state, action: PayloadAction<IDataItem>) {
 			const existingItem = findExistingItem(state.items, {
 				id: action.payload.id,
 				type: action.payload.type,
@@ -156,9 +134,8 @@ export const cartSlice = createSlice({
 	}
 });
 
-export const getItemsList = (state: { cart: ICartState }) => state.cart.items;
-export const getTotalPrice = (state: { cart: ICartState }) =>
-	state.cart.totalPrice;
+export const getItemsList = state => state.cart.items;
+export const getTotalPrice = state => state.cart.totalPrice;
 
 export const { addItem, removeItem, clearItems, minusItem, plusItem } =
 	cartSlice.actions;
