@@ -12,11 +12,8 @@ import { FaMoneyBill } from "react-icons/fa";
 //redux logic
 import { useGetPizzaQuery } from "../services/pizzas";
 import { useDispatch } from "react-redux";
-import { addItem } from "../redux/cartSlice";
+import { ICartItem, addItem } from "../redux/cartSlice";
 import { useTypedSelector } from "../hooks/useTypedSelector";
-
-//interface
-import { IDataItem } from "../types/dataItem.interface";
 
 //additional libs
 import LoadingBar from "react-top-loading-bar";
@@ -35,8 +32,10 @@ export interface IItem {
 	imageUrl: string;
 	title: string;
 	price: number;
+	activeSizeIdx: number;
+	activeTypeIdx: number;
+	type: number;
 	size: number;
-	type: string;
 }
 
 const ItemPage: React.FC<{}> = () => {
@@ -78,22 +77,22 @@ const ItemPage: React.FC<{}> = () => {
 			title: name,
 			price,
 			size: sizes[activeSizeIdx],
-			type: pizzaTypes[activeTypeIdx]
+			type: activeTypeIdx,
+			activeSizeIdx: 0,
+			activeTypeIdx: 0
 		};
 		dispatch(addItem(item));
 		notify();
 	};
 
-	const { count } = useTypedSelector(
-		state =>
-			state.cart.items.find((obj: IDataItem) => {
-				return (
-					obj.id === id &&
-					obj.type === pizzaTypes[activeTypeIdx] &&
-					obj.size === sizes[activeSizeIdx]
-				);
-			}) || {}
-	);
+	const { count } = useTypedSelector(state =>
+		state.cart.items.find(
+			(obj: ICartItem) =>
+				obj.id === id &&
+				obj.type === activeTypeIdx &&
+				obj.size === sizes[activeSizeIdx]
+		)
+	) as ICartItem;
 
 	return (
 		<div className='pizzaPage'>
@@ -160,7 +159,7 @@ const ItemPage: React.FC<{}> = () => {
 												Вибрати вид тіста:
 											</p>
 											<ul className='pizzaPage__infoSelect'>
-												{types.map((type, idx) => (
+												{types.map((type: number, idx: number) => (
 													<li
 														key={idx}
 														onClick={() => setActiveTypeIdx(idx)}
@@ -181,7 +180,7 @@ const ItemPage: React.FC<{}> = () => {
 												className='
 									pizzaPage__infoSelect'
 											>
-												{sizes.map((size, idx) => (
+												{sizes.map((size: number, idx: number) => (
 													<li
 														key={idx}
 														onClick={() => setActiveSizeIdx(idx)}

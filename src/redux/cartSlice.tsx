@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IData } from "../types/data.interface";
 import { IDataItem } from "../types/dataItem.interface";
 
-interface ICartItem extends IData {
+export interface ICartItem extends IData {
 	size: number;
 	type: number;
 	count: number;
