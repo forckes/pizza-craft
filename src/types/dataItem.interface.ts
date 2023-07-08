@@ -4,5 +4,5 @@ export interface IDataItem {
 	title: string;
 	price: number;
 	size: number;
-	type: number;
+	type: string;
 }
