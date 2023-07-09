@@ -12,7 +12,7 @@ import { FaMoneyBill } from "react-icons/fa";
 //redux logic
 import { useGetPizzaQuery } from "../services/pizzas";
 import { useDispatch } from "react-redux";
-import { CartSliceState, addItem } from "../redux/cartSlice";
+import { addItem } from "../redux/cartSlice";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 
 //additional libs
@@ -32,10 +32,9 @@ export interface IItem {
 	imageUrl: string;
 	title: string;
 	price: number;
-	activeSizeIdx: number;
-	activeTypeIdx: number;
-	type: number;
+	type: string;
 	size: number;
+	count: number;
 }
 
 const ItemPage: React.FC<{}> = () => {
@@ -70,6 +69,15 @@ const ItemPage: React.FC<{}> = () => {
 		}
 	};
 
+	const { count } = useTypedSelector(state =>
+		state.cart.items.find(
+			obj =>
+				obj.id === id &&
+				obj.type === types[activeTypeIdx] &&
+				obj.size === sizes[activeSizeIdx]
+		)
+	) as { count: number };
+
 	const onClickAdd = () => {
 		const item: IItem = {
 			id,
@@ -77,22 +85,12 @@ const ItemPage: React.FC<{}> = () => {
 			title: name,
 			price,
 			size: sizes[activeSizeIdx],
-			type: activeTypeIdx,
-			activeSizeIdx: 0,
-			activeTypeIdx: 0
+			type: types[activeTypeIdx],
+			count
 		};
 		dispatch(addItem(item));
 		notify();
 	};
-
-	const { count } = useTypedSelector(state =>
-		state.cart.items.find(
-			(obj: CartSliceState) =>
-				obj.id === id &&
-				obj.type === activeTypeIdx &&
-				obj.size === sizes[activeSizeIdx]
-		)
-	) as CartSliceState;
 
 	return (
 		<div className='pizzaPage'>
