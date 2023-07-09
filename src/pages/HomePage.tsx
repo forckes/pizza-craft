@@ -12,7 +12,6 @@ import { ErrorView } from "../components/ErrorView/ErrorView";
 //additional libs
 import LoadingBar from "react-top-loading-bar";
 import qs from "qs";
-import "react-toastify/dist/ReactToastify.css";
 
 //rtk
 import { useSelector, useDispatch } from "react-redux";
