@@ -76,7 +76,7 @@ const ItemPage: React.FC<{}> = () => {
 				obj.type === types[activeTypeIdx] &&
 				obj.size === sizes[activeSizeIdx]
 		)
-	) as { count: number };
+	) ?? { count: 0 };
 
 	const onClickAdd = () => {
 		const item: IItem = {
