@@ -1,20 +1,28 @@
 import React from "react";
 
+//components
 import CartItemCard from "../CartItemCard/CartItemCard";
 
+//icons
 import { BsCart4, BsTrash3 } from "react-icons/bs";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 
+//react router-dom
 import { Link } from "react-router-dom";
 
-import { useDispatch, useSelector } from "react-redux";
+//redux logic
+import { useDispatch } from "react-redux";
 import { clearItems, getItemsList, getTotalPrice } from "../../redux/cartSlice";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
+
+//interface
+import { IDataCartItem } from "../../types/dataItem.interface";
 
 export default function CartDataView() {
 	const dispatch = useDispatch();
 
-	const CartItems = useSelector(getItemsList);
-	const totalPrice = useSelector(getTotalPrice);
+	const CartItems = useTypedSelector(getItemsList);
+	const totalPrice = useTypedSelector(getTotalPrice);
 	const totalCount = CartItems.reduce((sum, item) => sum + item.count, 0);
 
 	return (
@@ -32,17 +40,19 @@ export default function CartDataView() {
 				</div>
 			</div>
 			<div className='cart__items'>
-				{CartItems.map(({ id, imageUrl, title, price, size, type }) => (
-					<CartItemCard
-						key={id}
-						id={id}
-						imageUrl={imageUrl}
-						title={title}
-						price={price}
-						size={size}
-						type={type}
-					/>
-				))}
+				{CartItems.map(
+					({ id, imageUrl, title, price, size, type }: IDataCartItem) => (
+						<CartItemCard
+							key={id}
+							id={id}
+							imageUrl={imageUrl}
+							title={title}
+							price={price}
+							size={size}
+							type={type}
+						/>
+					)
+				)}
 			</div>
 			<div className='cart__bottom'>
 				<div className='cart__bottom-details'>
