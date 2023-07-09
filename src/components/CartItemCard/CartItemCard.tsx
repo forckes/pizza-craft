@@ -1,26 +1,33 @@
-import React from "react";
+import React, { FC } from "react";
 
+//icons
 import { FiMinusCircle, FiPlusCircle } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
 
-import { useDispatch, useSelector } from "react-redux";
+//redux logic
+import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { useDispatch } from "react-redux";
 import { minusItem, plusItem, removeItem } from "../../redux/cartSlice";
+//
 import { Link } from "react-router-dom";
 
-export default function CartItemCard({
+//interfaces
+import { IDataCartItem } from "../../types/dataItem.interface";
+
+const CartItemCard: FC<IDataCartItem> = ({
 	id,
 	imageUrl,
 	title,
 	price,
 	size,
 	type
-}) {
+}) => {
 	const dispatch = useDispatch();
-	const { count } = useSelector(state =>
+	const { count } = useTypedSelector(state =>
 		state.cart.items.find(item => {
 			return item.id === id && item.type === type && item.size === size;
 		})
-	);
+	) ?? { count: 0 };
 
 	return (
 		<div className='cart__item'>
@@ -68,4 +75,6 @@ export default function CartItemCard({
 			</button>
 		</div>
 	);
-}
+};
+
+export default CartItemCard;

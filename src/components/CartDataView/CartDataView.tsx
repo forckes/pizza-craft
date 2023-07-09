@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 
 //components
 import CartItemCard from "../CartItemCard/CartItemCard";
@@ -18,7 +18,7 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 //interface
 import { IDataCartItem } from "../../types/dataItem.interface";
 
-export default function CartDataView() {
+const CartDataView: FC<{}> = () => {
 	const dispatch = useDispatch();
 
 	const CartItems = useTypedSelector(getItemsList);
@@ -77,4 +77,5 @@ export default function CartDataView() {
 			</div>
 		</div>
 	);
-}
+};
+export default CartDataView;
