@@ -7,3 +7,4 @@ export interface IDataItem {
 	type: string;
 	count: number;
 }
+export interface IDataCartItem extends Omit<IDataItem, "count"> {}
