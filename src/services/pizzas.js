@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const pizzasApi = createApi({
-	reducerPath: "pokemons",
+	reducerPath: "pizzas",
 	baseQuery: fetchBaseQuery({
 		baseUrl: "https://6484615eee799e3216269b53.mockapi.io/items"
 	}),
