@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IDataItem } from "../types/dataItem.interface";
+import { IDataDispatch, IDataItem } from "../types/dataItem.interface";
 import { RootState } from "./store";
 
 //for initial state
@@ -95,7 +95,7 @@ export const cartSlice = createSlice({
 			state.totalPrice = calculateTotalPrice(state.items);
 		},
 
-		minusItem(state, action: PayloadAction<IDataItem>) {
+		minusItem(state, action: PayloadAction<IDataDispatch>) {
 			const existingItem = findExistingItem(state.items, {
 				id: action.payload.id,
 				type: action.payload.type,
@@ -114,7 +114,7 @@ export const cartSlice = createSlice({
 			state.totalPrice = calculateTotalPrice(state.items);
 		},
 
-		plusItem(state, action: PayloadAction<IDataItem>) {
+		plusItem(state, action: PayloadAction<IDataDispatch>) {
 			const existingItem = findExistingItem(state.items, {
 				id: action.payload.id,
 				type: action.payload.type,
