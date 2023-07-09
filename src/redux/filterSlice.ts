@@ -1,23 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "./store";
 
+//interface
 interface IFilter {
 	categoryId: number;
 	currentPage: number;
+	searchValue: string;
 	sort: {
 		name: string;
 		sortProperty: string;
 	};
 }
 
-export const initialState = {
+//initial state
+export const initialState: IFilter = {
 	categoryId: 0,
 	currentPage: 1,
+	searchValue: "",
 	sort: {
 		name: "популярності ↓",
 		sortProperty: "rating"
 	}
 };
 
+//slice
 export const filterSlice = createSlice({
 	name: "filter",
 	initialState,
@@ -40,9 +46,11 @@ export const filterSlice = createSlice({
 	}
 });
 
-export const getCategoryId = state => state.filter.categoryId;
-export const getSort = state => state.filter.sort;
-export const getCurrentPage = state => state.filter.currentPage;
+//selectors
+export const getCategoryId = (state: RootState) => state.filter.categoryId;
+export const getSort = (state: RootState) => state.filter.sort;
+export const getCurrentPage = (state: RootState) => state.filter.currentPage;
 
+//actions
 export const { setCategoryId, setSort, setCurrentPage, setFilters } =
 	filterSlice.actions;
