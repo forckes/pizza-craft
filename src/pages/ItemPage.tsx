@@ -73,7 +73,7 @@ const ItemPage: React.FC<{}> = () => {
 		state.cart.items.find(
 			obj =>
 				obj.id === id &&
-				obj.type === types[activeTypeIdx] &&
+				obj.type === pizzaTypes[activeTypeIdx] &&
 				obj.size === sizes[activeSizeIdx]
 		)
 	) ?? { count: 0 };
@@ -85,7 +85,7 @@ const ItemPage: React.FC<{}> = () => {
 			title: name,
 			price,
 			size: sizes[activeSizeIdx],
-			type: types[activeTypeIdx],
+			type: pizzaTypes[activeTypeIdx],
 			count
 		};
 		dispatch(addItem(item));
