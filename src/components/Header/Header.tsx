@@ -5,8 +5,12 @@ import SearchBox from "../SearchBox/SearchBox";
 
 import { getItemsList, getTotalPrice } from "../../redux/cartSlice";
 import { useSelector } from "react-redux";
+import { FC } from "react";
 
-export default function Header({ setSearchValue, searchValue }) {
+const Header: FC<{ setSearchValue: Function; searchValue: string }> = ({
+	setSearchValue,
+	searchValue
+}) => {
 	const CartItems = useSelector(getItemsList);
 	const totalPrice = useSelector(getTotalPrice);
 	const totalCount = CartItems.reduce((sum, item) => sum + item.count, 0);
@@ -23,10 +27,7 @@ export default function Header({ setSearchValue, searchValue }) {
 						</div>
 					</NavLink>
 					<div className='header__searchBox'>
-						<SearchBox
-							searchValue={searchValue}
-							setSearchValue={setSearchValue}
-						/>
+						<SearchBox setSearchValue={setSearchValue} />
 					</div>
 					<div className='header__cart'>
 						<NavLink to='/cart' className='button button--cart'>
@@ -41,4 +42,5 @@ export default function Header({ setSearchValue, searchValue }) {
 			<Outlet />
 		</>
 	);
-}
+};
+export default Header;
