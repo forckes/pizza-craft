@@ -48,7 +48,11 @@ const CartItemCard: FC<IDataCartItem> = ({
 				<button
 					onClick={() => dispatch(minusItem({ id, type, size }))}
 					type='button'
-					className='cart__item-count-circle'
+					className={
+						count === 1
+							? "cart__item-count-circle_disabled"
+							: "cart__item-count-circle"
+					}
 				>
 					<FiMinusCircle size={30} />
 				</button>

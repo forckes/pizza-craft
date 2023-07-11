@@ -2,13 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IDataDispatch, IDataItem } from "../types/dataItem.interface";
 import { RootState } from "./store";
 
-//for initial state
+//interface for initial state
 export interface CartSliceState {
 	totalPrice: number;
 	items: IDataItem[];
 }
 
-//for funcs
+//interfaces for funcs
 interface IFindExistingItemPayload {
 	id: string;
 	type: string;
@@ -104,12 +104,6 @@ export const cartSlice = createSlice({
 
 			if (existingItem && existingItem.count !== 1) {
 				existingItem.count -= 1;
-			} else if (existingItem && existingItem.count === 1) {
-				state.items = onRemoveItem(state.items, {
-					id: action.payload.id,
-					type: action.payload.type,
-					size: action.payload.size
-				});
 			}
 			state.totalPrice = calculateTotalPrice(state.items);
 		},
