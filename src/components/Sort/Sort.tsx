@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { MutableRefObject, useRef, useState } from "react";
 
 import { TiArrowSortedUp } from "react-icons/ti";
 
@@ -25,16 +25,14 @@ export default function Sort() {
 	const dispatch = useDispatch();
 	const sort = useSelector(getSort);
 
-	const sortRef = useRef();
-
-	const onClickListItem = obj => {
+	const onClickListItem = (obj: { name: string; sortProperty: string }) => {
 		dispatch(setSort(obj));
 		setToggleSort(!toggleSort);
 	};
 
 	return (
 		<ClickAwayListener onClickAway={() => setToggleSort(false)}>
-			<div ref={sortRef} className='sort'>
+			<div className='sort'>
 				<button
 					type='button'
 					onClick={() => setToggleSort(!toggleSort)}
