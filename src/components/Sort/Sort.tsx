@@ -1,4 +1,4 @@
-import { MutableRefObject, useRef, useState } from "react";
+import { useState } from "react";
 
 import { TiArrowSortedUp } from "react-icons/ti";
 
