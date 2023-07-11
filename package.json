@@ -8,8 +8,8 @@
 		"@mui/material": "^5.13.5",
 		"@reduxjs/toolkit": "^1.9.5",
 		"@testing-library/jest-dom": "^5.16.5",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/user-event": "^13.5.0",
+		"@testing-library/react": "^14.0.0",
+		"@testing-library/user-event": "^14.4.3",
 		"@types/jest": "^29.5.2",
 		"@types/node": "^20.3.3",
 		"@types/react": "^18.2.14",
@@ -32,7 +32,7 @@
 		"redux-persist": "^6.0.0",
 		"sass": "^1.63.2",
 		"shortid": "^2.2.16",
-		"web-vitals": "^2.1.4"
+		"web-vitals": "^3.4.0"
 	},
 	"scripts": {
 		"start": "react-scripts start",
@@ -59,6 +59,7 @@
 		]
 	},
 	"devDependencies": {
+		"@types/lodash.debounce": "^4.0.7",
 		"typescript": "^5.1.6"
 	}
 }
