@@ -17,7 +17,7 @@ export default function Categories() {
 	const dispatch = useDispatch();
 	const categoryId = useSelector(getCategoryId);
 
-	const makeOptionClassName = index => {
+	const makeOptionClassName = (index: number) => {
 		const optionClasses = [];
 
 		if (index === categoryId) {
