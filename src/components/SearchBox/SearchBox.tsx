@@ -1,12 +1,11 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, FC, SetStateAction } from "react";
 
-// import throttle from "lodash.throttle";
 import debounce from "lodash.debounce";
 
 import { GoSearch } from "react-icons/go";
 import { IoMdClose } from "react-icons/io";
 
-export default function SearchBox({ setSearchValue }) {
+const SearchBox: FC<{ setSearchValue: Function }> = ({ setSearchValue }) => {
 	const [value, setValue] = useState("");
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -15,7 +14,7 @@ export default function SearchBox({ setSearchValue }) {
 		[setSearchValue]
 	);
 
-	const onChange = e => {
+	const onChange = (e: { target: { value: SetStateAction<string> } }) => {
 		setValue(e.target.value);
 		updateSearchValue(e.target.value);
 	};
@@ -40,4 +39,5 @@ export default function SearchBox({ setSearchValue }) {
 			</button>
 		</div>
 	);
-}
+};
+export default SearchBox;
