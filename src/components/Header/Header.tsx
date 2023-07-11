@@ -22,7 +22,7 @@ const Header: FC<{ setSearchValue: Function; searchValue: string }> = ({
 					<NavLink to='/' className='header__logo'>
 						<img width='38' src={Logo} alt='Pizza logo' />
 						<div>
-							<h1>React Pizza</h1>
+							<h1>PizzaCraft</h1>
 							<p>Найсмачніша піца у всесвіті</p>
 						</div>
 					</NavLink>
