@@ -1,42 +1,52 @@
-import { useState, useRef } from "react";
+import { useState, useRef, FC } from "react";
 import { Link } from "react-router-dom";
 
+//components
 import PizzaCardBottom from "../PizzaCardBottom/PizzaCardBottom";
 
-import { useDispatch, useSelector } from "react-redux";
+//redux logic
+import { useDispatch } from "react-redux";
 import { addItem } from "../../redux/cartSlice";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
-import { toast } from "react-toastify";
+//additional lib
+import { Id, toast } from "react-toastify";
 
 //pizzaTypes
 export const pizzaTypes = ["тонке", "традиційне"];
-//
 
-export default function PizzaCard({
+interface IPizzaCard {
+	id: string;
+	imageUrl: string;
+	title: string;
+	price: number;
+	sizes: number[];
+	types: string[];
+}
+
+const PizzaCard: FC<IPizzaCard> = ({
 	id,
 	title,
 	price,
 	imageUrl,
 	sizes,
 	types
-}) {
+}) => {
 	const [activeTypeIdx, setActiveTypeIdx] = useState(0);
 	const [activeSizeIdx, setActiveSizeIdx] = useState(0);
 
-	const { count } = useSelector(
-		state =>
-			state.cart.items.find(obj => {
-				return (
-					obj.id === id &&
-					obj.type === pizzaTypes[activeTypeIdx] &&
-					obj.size === sizes[activeSizeIdx]
-				);
-			}) || {}
-	);
+	const { count } = useTypedSelector(state =>
+		state.cart.items.find(
+			obj =>
+				obj.id === id &&
+				obj.type === types[activeTypeIdx] &&
+				obj.size === sizes[activeSizeIdx]
+		)
+	) ?? { count: 0 };
 
 	const dispatch = useDispatch();
 
-	const toastId = useRef(null);
+	const toastId = useRef<Id>(null!);
 
 	const notify = () => {
 		if (!toast.isActive(toastId.current)) {
@@ -54,7 +64,8 @@ export default function PizzaCard({
 			title,
 			price,
 			size: sizes[activeSizeIdx],
-			type: pizzaTypes[activeTypeIdx]
+			type: pizzaTypes[activeTypeIdx],
+			count
 		};
 		dispatch(addItem(item));
 		notify();
@@ -69,13 +80,13 @@ export default function PizzaCard({
 			</Link>
 			<div className='pizza-block__selector'>
 				<ul>
-					{types.map((type, idx) => (
+					{types.map((_type, idx) => (
 						<li
 							key={idx}
 							onClick={() => setActiveTypeIdx(idx)}
 							className={activeTypeIdx === idx ? "active" : ""}
 						>
-							{pizzaTypes[type]}
+							{pizzaTypes[idx]}
 						</li>
 					))}
 				</ul>
@@ -95,4 +106,6 @@ export default function PizzaCard({
 			<PizzaCardBottom count={count} onClickAdd={onClickAdd} price={price} />
 		</div>
 	);
-}
+};
+
+export default PizzaCard;
