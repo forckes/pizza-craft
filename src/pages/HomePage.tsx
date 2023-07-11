@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, FC, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 //components
@@ -56,7 +56,7 @@ const HomePage: FC<ISearchedValue> = ({ searchValue }) => {
 	);
 
 	//functions
-	const handlePageChange = (event: MouseEvent, newPage: number) => {
+	const handlePageChange = (event: ChangeEvent<unknown>, newPage: number) => {
 		dispatch(setCurrentPage(newPage));
 	};
 
