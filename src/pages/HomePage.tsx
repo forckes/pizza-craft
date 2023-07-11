@@ -19,7 +19,7 @@ import { getCategoryId, getSort, getCurrentPage } from "../redux/filterSlice";
 import { setCurrentPage, setFilters } from "../redux/filterSlice";
 
 //rtk query
-import { useGetPizzasQuery } from "../services/pizzas";
+import { useGetPizzasNumberQuery, useGetPizzasQuery } from "../services/pizzas";
 
 //interface
 import { IData } from "../types/data.interface";
@@ -54,6 +54,14 @@ const HomePage: FC<ISearchedValue> = ({ searchValue }) => {
 			refetchOnReconnect: true
 		}
 	);
+
+	//number of pizzas for pagination
+	const { data: pizzasNumberData = [] as IData[] } = useGetPizzasNumberQuery({
+		sort,
+		categoryId,
+		currentPage,
+		searchValue
+	});
 
 	//functions
 	const handlePageChange = (event: ChangeEvent<unknown>, newPage: number) => {
@@ -148,6 +156,7 @@ const HomePage: FC<ISearchedValue> = ({ searchValue }) => {
 					<PizzaPagination
 						currentPage={currentPage}
 						handlePageChange={handlePageChange}
+						pizzasNumberData={pizzasNumberData}
 					/>
 				) : (
 					""

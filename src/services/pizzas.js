@@ -22,8 +22,20 @@ export const pizzasApi = createApi({
 		}),
 		getPizza: builder.query({
 			query: pizzaId => `/${pizzaId}`
+		}),
+		getPizzasNumber: builder.query({
+			query: ({ sort, categoryId, searchValue, currentPage }) => {
+				const sortBy = sort.sortProperty.replace("-", "");
+				const order = sort.sortProperty.includes("-") ? "asc" : "desc";
+				const category = categoryId > 0 ? `category=${categoryId}` : "";
+				const search = searchValue !== "" ? `search=${searchValue}` : "";
+
+				const url = `?page=${currentPage}&${category}&sortBy=${sortBy}&order=${order}&${search}`;
+				return { url };
+			}
 		})
 	})
 });
 
-export const { useGetPizzasQuery, useGetPizzaQuery } = pizzasApi;
+export const { useGetPizzasQuery, useGetPizzaQuery, useGetPizzasNumberQuery } =
+	pizzasApi;
