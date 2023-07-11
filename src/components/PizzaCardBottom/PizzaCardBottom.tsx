@@ -1,6 +1,16 @@
+import { FC } from "react";
+
+//icon
 import { HiOutlinePlus } from "react-icons/hi";
 
-export default function PizzaCardBottom({ price, count, onClickAdd }) {
+//interface
+interface IPizzaBottom {
+	price: number;
+	count: number;
+	onClickAdd: Function;
+}
+
+const PizzaCardBottom: FC<IPizzaBottom> = ({ price, count, onClickAdd }) => {
 	return (
 		<div className='pizza-block__bottom'>
 			<div className='pizza-block__price'>{price} ₴</div>
@@ -15,4 +25,5 @@ export default function PizzaCardBottom({ price, count, onClickAdd }) {
 			</button>
 		</div>
 	);
-}
+};
+export default PizzaCardBottom;
