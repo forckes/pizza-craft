@@ -1,7 +1,10 @@
-import React from "react";
+import React, { FC, ChangeEvent } from "react";
 import Pagination from "@mui/material/Pagination";
 
-export default function PizzaPagination({ currentPage, handlePageChange }) {
+const PizzaPagination: FC<{
+	currentPage: number;
+	handlePageChange: (event: ChangeEvent<unknown>, newPage: number) => void;
+}> = ({ currentPage, handlePageChange }) => {
 	return (
 		<div>
 			<Pagination
@@ -15,4 +18,6 @@ export default function PizzaPagination({ currentPage, handlePageChange }) {
 			/>
 		</div>
 	);
-}
+};
+
+export default PizzaPagination;
