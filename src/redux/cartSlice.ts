@@ -1,6 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IDataDispatch, IDataItem } from "../types/dataItem.interface";
 import { RootState } from "./store";
+//persist
+import storage from "redux-persist/lib/storage";
+import { persistReducer } from "redux-persist";
+
+const persistConfig = {
+	key: "cart",
+	storage
+};
+//
 
 //interface for initial state
 export interface CartSliceState {
@@ -136,6 +145,12 @@ export const cartSlice = createSlice({
 //selectors
 export const getItemsList = (state: RootState) => state.cart.items;
 export const getTotalPrice = (state: RootState) => state.cart.totalPrice;
+
+//persistedCartReducer
+export const persistedCartReducer = persistReducer(
+	persistConfig,
+	cartSlice.reducer
+);
 
 //actions
 export const { addItem, removeItem, clearItems, minusItem, plusItem } =
