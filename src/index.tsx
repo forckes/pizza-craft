@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 //App
 import App from "./components/App/App";
@@ -8,6 +8,9 @@ import { persistor, store } from "./redux/store";
 //toastify
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+//loader
+import { Oval } from "react-loader-spinner";
+
 //persist
 import { PersistGate } from "redux-persist/integration/react";
 
@@ -16,12 +19,34 @@ const root = ReactDOM.createRoot(
 );
 root.render(
 	<React.StrictMode>
-		<Provider store={store}>
-			<PersistGate loading={null} persistor={persistor}>
-				<App />
-			</PersistGate>
+		<Suspense
+			fallback={
+				<Oval
+					height={180}
+					width={180}
+					color='#ff4d00'
+					wrapperStyle={{
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+						height: "700px"
+					}}
+					wrapperClass=''
+					visible={true}
+					ariaLabel='oval-loading'
+					secondaryColor='#f57f0996'
+					strokeWidth={3}
+					strokeWidthSecondary={3}
+				/>
+			}
+		>
+			<Provider store={store}>
+				<PersistGate loading={null} persistor={persistor}>
+					<App />
+				</PersistGate>
 
-			<ToastContainer position='top-center' autoClose={2000} />
-		</Provider>
+				<ToastContainer position='top-center' autoClose={2000} />
+			</Provider>
+		</Suspense>
 	</React.StrictMode>
 );
