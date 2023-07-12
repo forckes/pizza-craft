@@ -3,7 +3,6 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 
 //slices
 import { filterSlice } from "./filterSlice";
-import { cartSlice } from "./cartSlice";
 
 //api
 import { pizzasApi } from "../services/pizzas";
