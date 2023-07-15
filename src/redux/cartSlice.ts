@@ -69,16 +69,6 @@ export const calculateTotalPrice: ICalculateTotalPriceFunction = items => {
 	}
 };
 
-const cartTransform = createTransform(
-	(inboundState: CartSliceState) => inboundState,
-	(outboundState: CartSliceState) => {
-		return {
-			...outboundState,
-			totalPrice: calculateTotalPrice(outboundState.items)
-		};
-	}
-);
-
 //initial state
 const initialState: CartSliceState = {
 	items: [],
@@ -149,8 +139,7 @@ export const cartSlice = createSlice({
 //persist config
 const persistConfig = {
 	key: "cart",
-	storage,
-	transforms: [cartTransform]
+	storage
 };
 
 //selectors
