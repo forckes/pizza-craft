@@ -5,7 +5,7 @@ import SearchBox from "../SearchBox/SearchBox";
 
 import { getItemsList, getTotalPrice } from "../../redux/cartSlice";
 import { useSelector } from "react-redux";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 const Header: FC<{ setSearchValue: Function; searchValue: string }> = ({
 	setSearchValue,
@@ -17,6 +17,10 @@ const Header: FC<{ setSearchValue: Function; searchValue: string }> = ({
 		(sum: any, item: { count: any }) => sum + item.count,
 		0
 	);
+
+	useEffect(() => {
+		localStorage.setItem("cart", JSON.stringify(CartItems));
+	}, [CartItems]);
 
 	return (
 		<>
