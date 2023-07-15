@@ -11,6 +11,7 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 //additional lib
 import { Id, toast } from "react-toastify";
+import { IDataDispatch } from "../../types/dataItem.interface";
 
 //pizzaTypes
 export const pizzaTypes = ["тонке", "традиційне"];
@@ -37,7 +38,7 @@ const PizzaCard: FC<IPizzaCard> = ({
 
 	const { count } = useTypedSelector(state =>
 		state.cart.items.find(
-			obj =>
+			(obj: IDataDispatch) =>
 				obj.id === id &&
 				obj.type === types[activeTypeIdx] &&
 				obj.size === sizes[activeSizeIdx]

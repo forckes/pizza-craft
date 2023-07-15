@@ -3,13 +3,7 @@ import { IDataDispatch, IDataItem } from "../types/dataItem.interface";
 import { RootState } from "./store";
 //persist
 import storage from "redux-persist/lib/storage";
-import { persistReducer } from "redux-persist";
-
-const persistConfig = {
-	key: "cart",
-	storage
-};
-//
+import { createTransform, persistReducer } from "redux-persist";
 
 //interface for initial state
 export interface CartSliceState {
@@ -65,7 +59,7 @@ const onRemoveItem: IOnRemoveItemFunction = (items, payload) => {
 	});
 };
 
-const calculateTotalPrice: ICalculateTotalPriceFunction = items => {
+export const calculateTotalPrice: ICalculateTotalPriceFunction = items => {
 	if (items.length === 0) {
 		return 0;
 	} else {
@@ -74,6 +68,16 @@ const calculateTotalPrice: ICalculateTotalPriceFunction = items => {
 		}, 0);
 	}
 };
+
+const cartTransform = createTransform(
+	(inboundState: CartSliceState) => inboundState,
+	(outboundState: CartSliceState) => {
+		return {
+			...outboundState,
+			totalPrice: calculateTotalPrice(outboundState.items)
+		};
+	}
+);
 
 //initial state
 const initialState: CartSliceState = {
@@ -141,6 +145,13 @@ export const cartSlice = createSlice({
 		}
 	}
 });
+
+//persist config
+const persistConfig = {
+	key: "cart",
+	storage,
+	transforms: [cartTransform]
+};
 
 //selectors
 export const getItemsList = (state: RootState) => state.cart.items;

@@ -13,7 +13,10 @@ const Header: FC<{ setSearchValue: Function; searchValue: string }> = ({
 }) => {
 	const CartItems = useSelector(getItemsList);
 	const totalPrice = useSelector(getTotalPrice);
-	const totalCount = CartItems.reduce((sum, item) => sum + item.count, 0);
+	const totalCount = CartItems.reduce(
+		(sum: any, item: { count: any }) => sum + item.count,
+		0
+	);
 
 	return (
 		<>

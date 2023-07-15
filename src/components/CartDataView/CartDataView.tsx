@@ -24,7 +24,7 @@ const CartDataView: FC<{}> = () => {
 	const CartItems = useTypedSelector(getItemsList);
 	const totalPrice = useTypedSelector(getTotalPrice);
 	const totalCount = CartItems.reduce(
-		(sum: number, item) => sum + item.count,
+		(sum: number, item: { count: number }) => sum + item.count,
 		0
 	);
 

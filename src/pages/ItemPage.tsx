@@ -26,6 +26,7 @@ import { ErrorView } from "../components/ErrorView/ErrorView";
 //info from components
 import { CategoriesItems } from "../components/Categories/Categories";
 import { pizzaTypes } from "../components/PizzaCard/PizzaCard";
+import { IDataDispatch } from "../types/dataItem.interface";
 
 export interface IItem {
 	id: string;
@@ -71,7 +72,7 @@ const ItemPage: React.FC<{}> = () => {
 
 	const { count } = useTypedSelector(state =>
 		state.cart.items.find(
-			obj =>
+			(obj: IDataDispatch) =>
 				obj.id === id &&
 				obj.type === pizzaTypes[activeTypeIdx] &&
 				obj.size === sizes[activeSizeIdx]

@@ -12,7 +12,7 @@ import { minusItem, plusItem, removeItem } from "../../redux/cartSlice";
 import { Link } from "react-router-dom";
 
 //interfaces
-import { IDataCartItem } from "../../types/dataItem.interface";
+import { IDataCartItem, IDataDispatch } from "../../types/dataItem.interface";
 
 const CartItemCard: FC<IDataCartItem> = ({
 	id,
@@ -24,7 +24,7 @@ const CartItemCard: FC<IDataCartItem> = ({
 }) => {
 	const dispatch = useDispatch();
 	const { count } = useTypedSelector(state =>
-		state.cart.items.find(item => {
+		state.cart.items.find((item: IDataDispatch) => {
 			return item.id === id && item.type === type && item.size === size;
 		})
 	) ?? { count: 0 };
