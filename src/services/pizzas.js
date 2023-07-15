@@ -5,6 +5,7 @@ export const pizzasApi = createApi({
 	baseQuery: fetchBaseQuery({
 		baseUrl: "https://6484615eee799e3216269b53.mockapi.io/items"
 	}),
+
 	endpoints: builder => ({
 		getPizzas: builder.query({
 			query: ({ sort, categoryId, searchValue, currentPage }) => {

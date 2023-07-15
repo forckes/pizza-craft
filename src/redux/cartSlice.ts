@@ -3,7 +3,7 @@ import { IDataDispatch, IDataItem } from "../types/dataItem.interface";
 import { RootState } from "./store";
 //persist
 import storage from "redux-persist/lib/storage";
-import { createTransform, persistReducer } from "redux-persist";
+import { persistReducer } from "redux-persist";
 
 //interface for initial state
 export interface CartSliceState {

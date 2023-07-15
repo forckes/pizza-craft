@@ -10,7 +10,6 @@ import { pizzasApi } from "../services/pizzas";
 //persist
 import {
 	persistStore,
-	persistReducer,
 	FLUSH,
 	REHYDRATE,
 	PAUSE,
@@ -19,11 +18,7 @@ import {
 	REGISTER
 } from "redux-persist";
 
-import {
-	CartSliceState,
-	calculateTotalPrice,
-	persistedCartReducer
-} from "./cartSlice";
+import { persistedCartReducer } from "./cartSlice";
 
 //store
 export const store = configureStore({
