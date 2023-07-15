@@ -4,15 +4,12 @@ import ReactDOM from "react-dom/client";
 import App from "./components/App/App";
 //redux
 import { Provider } from "react-redux";
-import { persistor, store } from "./redux/store";
+import { store } from "./redux/store";
 //toastify
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 //loader
 import { Oval } from "react-loader-spinner";
-
-//persist
-import { PersistGate } from "redux-persist/integration/react";
 
 const root = ReactDOM.createRoot(
 	document.getElementById("root") as HTMLElement
@@ -41,9 +38,7 @@ root.render(
 			}
 		>
 			<Provider store={store}>
-				<PersistGate loading={null} persistor={persistor}>
-					<App />
-				</PersistGate>
+				<App />
 
 				<ToastContainer position='top-center' autoClose={2000} />
 			</Provider>
