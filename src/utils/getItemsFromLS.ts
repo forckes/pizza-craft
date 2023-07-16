@@ -1,3 +1,4 @@
+import { IDataItem } from "../types/dataItem.interface";
 import { calculateTotalPrice } from "./calcTotalPrice";
 
 export const getItemsFromLS = () => {
@@ -6,7 +7,7 @@ export const getItemsFromLS = () => {
 	const totalPrice = calculateTotalPrice(items);
 
 	return {
-		items,
+		items: items as IDataItem[],
 		totalPrice
 	};
 };
