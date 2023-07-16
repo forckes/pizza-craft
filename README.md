@@ -2,7 +2,7 @@
 
 ## Description
 
-PizzaCraft also known as React Pizza. It's my small pizza shop to consolidate my knowledge of React, RTK and others...
+PizzaCraft also known as `React Pizza`. It's my small pizza shop to consolidate my knowledge of React, RTK and others...
 
 ## Usages
 
