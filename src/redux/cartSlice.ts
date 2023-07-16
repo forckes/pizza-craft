@@ -45,6 +45,7 @@ export const cartSlice = createSlice({
 				});
 			}
 			state.totalPrice = calculateTotalPrice(state.items);
+			localStorage.setItem("cart", JSON.stringify(state.items));
 		},
 
 		minusItem(state, action: PayloadAction<IDataDispatch>) {
@@ -58,6 +59,7 @@ export const cartSlice = createSlice({
 				existingItem.count -= 1;
 			}
 			state.totalPrice = calculateTotalPrice(state.items);
+			localStorage.setItem("cart", JSON.stringify(state.items));
 		},
 
 		plusItem(state, action: PayloadAction<IDataDispatch>) {
@@ -71,16 +73,19 @@ export const cartSlice = createSlice({
 				existingItem.count++;
 			}
 			state.totalPrice = calculateTotalPrice(state.items);
+			localStorage.setItem("cart", JSON.stringify(state.items));
 		},
 
 		removeItem(state, action: PayloadAction<IRemoveItemPayload>) {
 			state.items = onRemoveItem(state.items, action.payload);
 			state.totalPrice = calculateTotalPrice(state.items);
+			localStorage.setItem("cart", JSON.stringify(state.items));
 		},
 
 		clearItems(state) {
 			state.items = [];
 			state.totalPrice = calculateTotalPrice(state.items);
+			localStorage.setItem("cart", JSON.stringify(state.items));
 		}
 	}
 });

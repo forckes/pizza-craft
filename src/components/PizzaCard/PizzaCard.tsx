@@ -40,7 +40,7 @@ const PizzaCard: FC<IPizzaCard> = ({
 		state.cart.items.find(
 			(obj: IDataDispatch) =>
 				obj.id === id &&
-				obj.type === types[activeTypeIdx] &&
+				obj.type === pizzaTypes[activeTypeIdx] &&
 				obj.size === sizes[activeSizeIdx]
 		)
 	) ?? { count: 0 };
