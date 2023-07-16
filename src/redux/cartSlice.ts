@@ -1,6 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+//interface
 import { IDataDispatch, IDataItem } from "../types/dataItem.interface";
+//rootState
 import { RootState } from "./store";
+//utils
+import { getItemsFromLS } from "../utils/getItemsFromLS";
+import { calculateTotalPrice } from "../utils/calcTotalPrice";
+import { IRemoveItemPayload, onRemoveItem } from "../utils/removeItemFunc";
+import { findExistingItem } from "../utils/findExistingItem";
 
 //interface for initial state
 export interface CartSliceState {
@@ -8,68 +15,13 @@ export interface CartSliceState {
 	items: IDataItem[];
 }
 
-//interfaces for funcs
-interface IFindExistingItemPayload {
-	id: string;
-	type: string;
-	size: number;
-}
-
-interface IRemoveItemPayload {
-	id: string;
-	type: string;
-	size: number;
-}
-
-interface IFindExistingItemFunction {
-	(items: IDataItem[], payload: IFindExistingItemPayload):
-		| IDataItem
-		| undefined;
-}
-
-interface IOnRemoveItemFunction {
-	(items: IDataItem[], payload: IRemoveItemPayload): IDataItem[];
-}
-
-interface ICalculateTotalPriceFunction {
-	(items: IDataItem[]): number;
-}
-
-//funcs
-const findExistingItem: IFindExistingItemFunction = (items, payload) => {
-	return items.find(item => {
-		return (
-			item.id === payload.id &&
-			item.type === payload.type &&
-			item.size === payload.size
-		);
-	});
-};
-
-const onRemoveItem: IOnRemoveItemFunction = (items, payload) => {
-	return items.filter(item => {
-		return (
-			item.id !== payload.id ||
-			item.type !== payload.type ||
-			item.size !== payload.size
-		);
-	});
-};
-
-export const calculateTotalPrice: ICalculateTotalPriceFunction = items => {
-	if (items.length === 0) {
-		return 0;
-	} else {
-		return items.reduce((sum, obj) => {
-			return obj.price * obj.count + sum;
-		}, 0);
-	}
-};
+//
+const { items, totalPrice } = getItemsFromLS();
 
 //initial state
 const initialState: CartSliceState = {
-	items: [],
-	totalPrice: 0
+	items: items,
+	totalPrice: totalPrice
 };
 
 //slice
