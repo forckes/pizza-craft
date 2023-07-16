@@ -152,15 +152,15 @@ const HomePage: FC<ISearchedValue> = ({ searchValue }) => {
 						))}
 					{isError && <ErrorView />}
 				</div>
-				{categoryId === 0 ? (
-					<PizzaPagination
-						currentPage={currentPage}
-						handlePageChange={handlePageChange}
-						pizzasNumberData={pizzasNumberData}
-					/>
-				) : (
-					""
-				)}
+				{/* {categoryId === 0 ? ( */}
+				<PizzaPagination
+					currentPage={currentPage}
+					handlePageChange={handlePageChange}
+					pizzasNumberData={pizzasNumberData}
+				/>
+				{/* ) : ( */}
+				{/* "" */}
+				{/* )} */}
 			</div>
 		</div>
 	);

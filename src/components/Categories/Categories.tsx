@@ -4,14 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCategoryId } from "../../redux/filterSlice";
 import { getCategoryId } from "../../redux/filterSlice";
 
-export const CategoriesItems = [
-	"Всі",
-	"М'ясні",
-	"Вегетаріанські",
-	"Гриль",
-	"Гостра",
-	"Закриті"
-];
+export const CategoriesItems = ["Всі", "М'ясні", "Сирні", "Гриль", "Гостра"];
 
 export default function Categories() {
 	const dispatch = useDispatch();
