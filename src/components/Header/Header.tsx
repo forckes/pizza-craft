@@ -3,24 +3,22 @@ import Logo from "../../assets/images/logo.svg";
 import { NavLink, Outlet } from "react-router-dom";
 import SearchBox from "../SearchBox/SearchBox";
 
-import { getItemsList, getTotalPrice } from "../../redux/cartSlice";
-import { useSelector } from "react-redux";
+import { getItemsList } from "../../redux/cartSlice";
 import { FC, useEffect } from "react";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { getCartCountAndTotalPrice } from "../../redux/getCartCount";
 
 const Header: FC<{ setSearchValue: Function; searchValue: string }> = ({
 	setSearchValue,
 	searchValue
 }) => {
-	const CartItems = useSelector(getItemsList);
-	const totalPrice = useSelector(getTotalPrice);
-	const totalCount = CartItems.reduce(
-		(sum: any, item: { count: any }) => sum + item.count,
-		0
-	);
+	const CartItems = useTypedSelector(getItemsList);
 
 	useEffect(() => {
 		localStorage.setItem("cart", JSON.stringify(CartItems));
 	}, [CartItems]);
+
+	const { count, totalPrice } = useTypedSelector(getCartCountAndTotalPrice);
 
 	return (
 		<>
@@ -41,7 +39,7 @@ const Header: FC<{ setSearchValue: Function; searchValue: string }> = ({
 							<span>{totalPrice} ₴</span>
 							<div className='button__delimiter'></div>
 							<HiShoppingCart size={22} />
-							<span>{totalCount}</span>
+							<span>{count}</span>
 						</NavLink>
 					</div>
 				</div>
