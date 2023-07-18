@@ -2,12 +2,12 @@ import React, { ChangeEvent, FC, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 //components
-import ContentTop from "../components/ContentTop/ContentTop";
-import PizzaCard from "../components/PizzaCard/PizzaCard";
-import PizzaLoader from "../components/SkeletonLoaders/PizzaLoader";
-import PizzaPagination from "../components/Pagination/Pagination";
-import { sortItems } from "../components/Sort/Sort";
-import { ErrorView } from "../components/ErrorView/ErrorView";
+import ContentTop from "./components/ContentTop/ContentTop";
+import PizzaCard from "./components/PizzaCard/PizzaCard";
+import PizzaLoader from "./components/SkeletonLoaders/PizzaLoader";
+import PizzaPagination from "./components/Pagination/Pagination";
+import { sortItems } from "./components/Sort/Sort";
+import { ErrorView } from "./components/ErrorView/ErrorView";
 
 //additional libs
 import LoadingBar from "react-top-loading-bar";
@@ -15,14 +15,14 @@ import qs from "qs";
 
 //rtk
 import { useSelector, useDispatch } from "react-redux";
-import { getCategoryId, getSort, getCurrentPage } from "../redux/filterSlice";
-import { setCurrentPage, setFilters } from "../redux/filterSlice";
+import { getCategoryId, getSort, getCurrentPage } from "./redux/filterSlice";
+import { setCurrentPage, setFilters } from "./redux/filterSlice";
 
 //rtk query
-import { useGetPizzasNumberQuery, useGetPizzasQuery } from "../services/pizzas";
+import { useGetPizzasNumberQuery, useGetPizzasQuery } from "./services/pizzas";
 
 //interface
-import { IData } from "../types/data.interface";
+import { IData } from "./types/data.interface";
 
 //interface
 interface ISearchedValue {
