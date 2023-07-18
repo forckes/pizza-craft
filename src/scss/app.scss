@@ -209,6 +209,12 @@ body {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		@media (max-width: 900px) {
+			margin-top: -50px;
+		}
+		@media (max-width: 768px) {
+			margin-top: -60px;
+		}
 	}
 
 	.content__title {
@@ -414,15 +420,25 @@ body {
 		margin: 0 auto;
 		width: 560px;
 		text-align: center;
+		@media (max-width: 800px) {
+			margin-top: -70px;
+		}
+		@media (max-width: 650px) {
+			width: 270px;
+		}
 
 		h2 {
 			font-size: 32px;
 			margin-bottom: 10px;
 			display: flex;
 			justify-content: center;
+			flex-wrap: wrap;
 			align-items: center;
 			gap: 10px;
 			font-weight: 700;
+			@media (max-width: 800px) {
+				font-size: 28px;
+			}
 		}
 
 		p {
@@ -430,6 +446,10 @@ body {
 			line-height: 145.4%;
 			letter-spacing: 0.01em;
 			color: #777777;
+
+			@media (max-width: 800px) {
+				font-size: 16px;
+			}
 		}
 
 		icon {
@@ -441,12 +461,19 @@ body {
 			display: block;
 			width: 300px;
 			margin: 45px auto 60px;
+			@media (max-width: 800px) {
+				width: 200px;
+			}
 		}
 
 		.button--black {
 			padding: 12px 22px 14px 18px;
 			font-weight: 600;
 			font-size: 18px;
+			@media (max-width: 800px) {
+				padding: 10px 20px 10px 16px;
+				font-size: 16px;
+			}
 		}
 	}
 }
@@ -456,10 +483,22 @@ body {
 	justify-content: center;
 	border: 1px solid #b2b2b2;
 	border-radius: 8px;
-	padding: 6px;
+	padding: 10px 6px;
+	@media (max-width: 570px) {
+		display: none;
+	}
+
+	@media (max-width: 1050px) {
+		&:hover {
+			border: 1px solid #4d4d4d;
+		}
+	}
+
 	&:focus-within {
 		border: 1px solid #6f6f6f;
 		position: relative;
+		transition: border 0.3s ease;
+
 		.searchBox__remove {
 			position: absolute;
 			display: block;
@@ -473,21 +512,37 @@ body {
 	&__search {
 		margin: 0px 8px 0px 8px;
 	}
+
 	&__input {
 		min-width: 400px;
 		color: #4f4e4e;
 		font-size: 16px;
 		font-weight: 300;
+
 		&::placeholder {
 			color: #7b7b7b;
 			font-size: 16px;
 			font-weight: 200;
 		}
+
+		@media (max-width: 1050px) {
+			min-width: 200px;
+		}
+
+		@media (max-width: 768px) {
+			min-width: 300px;
+		}
+
+		@media (max-width: 690px) {
+			min-width: 200px;
+		}
 	}
+
 	&__remove {
 		display: none;
 		align-items: center;
 		color: #7b7b7b;
+
 		&:hover {
 			color: #4b4b4b;
 		}

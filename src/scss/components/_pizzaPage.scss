@@ -5,6 +5,9 @@
 		justify-content: center;
 		align-items: center;
 		position: relative;
+		@media (max-width: 1350px) {
+			flex-direction: column;
+		}
 	}
 
 	&__asideImg {
@@ -14,6 +17,18 @@
 	}
 	&__img {
 		max-width: 500px;
+		@media (max-width: 1550px) {
+			max-width: 450px;
+		}
+		@media (max-width: 1450px) {
+			max-width: 400px;
+		}
+		@media (max-width: 1350px) {
+			max-width: 350px;
+		}
+		@media (max-width: 768px) {
+			max-width: 300px;
+		}
 	}
 	&__content {
 		flex: 1 0 50%;
@@ -22,6 +37,15 @@
 		align-items: flex-start;
 		text-align: center;
 		padding: 60px 0;
+		@media (max-width: 1350px) {
+			padding: 30px 0;
+		}
+		@media (max-width: 768px) {
+			padding: 10px 0;
+		}
+		@media (max-width: 500px) {
+			align-items: center;
+		}
 	}
 	&__title {
 		max-width: 500px;
@@ -34,6 +58,12 @@
 		flex-wrap: wrap;
 		margin-bottom: 50px;
 		width: 100%;
+		@media (max-width: 1350px) {
+			font-size: 44px;
+		}
+		@media (max-width: 768px) {
+			font-size: 32px;
+		}
 	}
 
 	&__rating {
@@ -45,6 +75,9 @@
 			align-items: center;
 			font-size: 18px;
 			font-weight: 700;
+			@media (max-width: 768px) {
+				display: none;
+			}
 			svg {
 				margin-right: 5px;
 			}
@@ -72,6 +105,9 @@
 			top: 0;
 			left: 0;
 			background-color: #e7e4e4;
+			@media (max-width: 500px) {
+				display: none;
+			}
 		}
 	}
 	&__selector {
@@ -93,6 +129,9 @@
 				cursor: pointer;
 				font-weight: 600;
 				font-size: 16px;
+				@media (max-width: 768px) {
+					font-size: 12px;
+				}
 
 				&.active {
 					background: #ffffff;
@@ -111,6 +150,9 @@
 		display: flex;
 		align-items: flex-start;
 		gap: 20px;
+		@media (max-width: 500px) {
+			flex-direction: column-reverse;
+		}
 	}
 	&__userBox {
 		display: flex;
@@ -126,6 +168,9 @@
 		align-items: center;
 		margin-right: 10px;
 		margin-bottom: 5px;
+		@media (max-width: 768px) {
+			font-size: 18px;
+		}
 		svg {
 			margin-right: 5px;
 		}
@@ -142,11 +187,17 @@
 		border-radius: 10px;
 		padding: 6px;
 		width: 100%;
+		@media (max-width: 768px) {
+			font-size: 18px;
+		}
 	}
 	&__infoCategory {
 		display: flex;
 		align-items: center;
 		margin-bottom: 20px;
+		@media (max-width: 768px) {
+			font-size: 18px;
+		}
 		svg {
 			color: #000;
 		}
@@ -164,6 +215,9 @@
 		align-items: flex-start;
 		flex-direction: column;
 		justify-content: center;
+		@media (max-width: 768px) {
+			font-size: 18px;
+		}
 		svg {
 			color: #000;
 		}
@@ -184,6 +238,9 @@
 			display: flex;
 			align-items: center;
 			gap: 10px;
+			@media (max-width: 768px) {
+				font-size: 26px;
+			}
 		}
 		&__button {
 			display: inline-block;
