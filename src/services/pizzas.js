@@ -14,9 +14,6 @@ export const pizzasApi = createApi({
 				const category = categoryId > 0 ? `category=${categoryId}` : "";
 				const search = searchValue !== "" ? `search=${searchValue}` : "";
 				let limit = 4;
-				if (window.innerWidth <= 1400) {
-					limit = 3;
-				}
 				const url = `?page=${currentPage}&limit=${limit}&${category}&sortBy=${sortBy}&order=${order}&${search}`;
 				return { url };
 			}
