@@ -15,13 +15,13 @@
 
 	&__logo {
 		display: flex;
-		@media (max-width: 495px) {
+		@media (max-width: 768px) {
 			justify-content: space-evenly;
 		}
 
 		img {
 			margin-right: 15px;
-			@media (max-width: 495px) {
+			@media (max-width: 768px) {
 				height: 50px;
 				width: 50px;
 				margin-left: 15px;
@@ -34,7 +34,7 @@
 			letter-spacing: 1%;
 			text-transform: uppercase;
 			font-weight: 800;
-			@media (max-width: 495px) {
+			@media (max-width: 768px) {
 				display: none;
 			}
 		}
@@ -42,7 +42,7 @@
 		p {
 			color: #7b7b7b;
 			margin-top: 5px;
-			@media (max-width: 495px) {
+			@media (max-width: 768px) {
 				display: none;
 			}
 		}
