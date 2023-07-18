@@ -4,7 +4,7 @@ import { lazy, useState } from "react";
 import "../../scss/app.scss";
 
 import {
-	createBrowserRouter,
+	createHashRouter,
 	createRoutesFromElements,
 	RouterProvider,
 	Route
@@ -26,7 +26,7 @@ function ErrorBoundary() {
 export default function App() {
 	const [searchValue, setSearchValue] = useState("");
 
-	const router = createBrowserRouter(
+	const router = createHashRouter(
 		createRoutesFromElements(
 			<Route
 				errorElement={<ErrorBoundary />}
