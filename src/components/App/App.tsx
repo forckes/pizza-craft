@@ -16,7 +16,7 @@ import NotFoundPage from "../NotFoundPage/NotFoundPage";
 import { ErrorView } from "../ErrorView/ErrorView";
 
 //lazy pages components
-const HomePage = lazy(() => import("../../HomePage"));
+const HomePage = lazy(() => import("../../pages/HomePage"));
 const CartPage = lazy(() => import("../../pages/CartPage"));
 const ItemPage = lazy(() => import("../../pages/ItemPage"));
 function ErrorBoundary() {
